@@ -1,5 +1,5 @@
 
-<nav class="p-1 sticky-top" style="background:#000;margin-top: -1px;">
+<nav class="p-1 sticky-top" style="background:#ff6666; margin-top: -1px;">
     <div class="container">
         <div class="row">
             <div class="col-6">
@@ -12,7 +12,7 @@
                     <ul class="list-unstyled text-white d-flex justify-content-center mb-0">
                         @foreach ($service_categories as $category)
                             @if ($category->menu_top === 1)
-                                <li class="px-3 fs-5 navbar_items active-link">
+                                <li class="px-3 fs-9 navbar_items active-link">
                                     <a class="text-decoration-none text-white text-uppercase" href="{{ route('catalog.product-all', [$category->id, $category->slug]) . '?sort=latest' }}">
                                         {{ $category->category_name }}
                                     </a>
@@ -35,7 +35,7 @@
                             @if ($category->children->isNotEmpty())
                                 @foreach ($category->children as $child)
                                 @if ($child->menu_top === 1)
-                                    <li class="px-3 fs-5 navbar_items active-link">
+                                    <li class="px-3 fs-6 navbar_items active-link">
                                         <a class="text-decoration-none text-white text-uppercase" href="{{ route('catalog.product-all', [$child->id, $child->slug]) . '?sort=latest' }}">
                                             {{ $child->category_name }}
                                         </a>

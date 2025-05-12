@@ -378,3 +378,78 @@ i.icon.icon-arrow-io {
   align-items: center;
 }
 /*============== End Other URL link ===================== */
+
+.image {
+  opacity: 1;
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.abc {
+  position: relative;
+  width: 50%;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.abc:hover .image {
+  opacity: 0.3;
+}
+
+.abc:hover .middle {
+  opacity: 1;
+}
+
+.text {
+  background-color: #ff6666;
+  color: white;
+  font-size: 15px;
+  padding: 10px 25px;
+}
+
+#popular-tab{
+  color:#ff6666;
+}
+
+#featured-tab{
+  color:#ff6666;
+}
+
+#latest-tab{
+  color:#ff6666;
+}
+
+.made{
+  color:#ff6666;
+}
+
+.card-title{
+  color:#ff6666;
+}
+
+#aa-testimonial{
+  background-color: #1a1313;
+  color: white;
+}
+
+.rounded{
+  color: white;
+}
+
+.cate{
+  color:#ff6666;
+  text-align: center;
+
+}

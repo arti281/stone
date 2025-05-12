@@ -21,7 +21,9 @@
     <div class="container">
         <div class="row text-dark">
             <div class="col-md-4 py-2">
-                <p class="fs-6">Fitness and Strength have power to transform you and make you different from others. Driven by our passion for fitness and our instinct for innovation, we want to bring the best out of you. We want to stand on the same place where you are trying to strengthen yourself, and to achieve that Herculeen brand runs by <strong>[company name]</strong> is based on very true values that promises a premium range of activewear, footwear and accessories.</p>
+            <h2 class="fs-5 mb-3">About Us</h2>
+            <img src="{{ URL::asset('pstone-logo.png'); }}" height="150" width="100" class="img-fluid" alt="Pstone">
+                <p class="fs-6">"@PStone Arts is a doorstep for all white stone statues and many decorations items."</p>
             </div>
             <div class="col-md-4 py-3">
                <div class="row">
@@ -56,11 +58,13 @@
             <div class="col-md-4 py-3">
                 <h2 class="fs-5 mb-4">CONTACT US</h2>
                 
+                <p class="fs-6">Pstone Arts, Govindgarh Road, Behind the Jagannath Temple, Sikri, Deeg<br/> Pin Code - 321024</p>
+           
             </div>
         </div>
     </div>
     <hr style="border-color:#000">
     <div class="text-center pb-3 text-dark">
-        &copy; Copyright {{ date('Y') }} <a target="blank" href="#">XYZ</a>
+        &copy; Copyright {{ date('Y') }}, Designed and Developed by <a target="blank" href="http://www.pstonearts.com/"><span style="color:#ff6666;">Pstone Arts</span></a>
     </div>
 </footer>

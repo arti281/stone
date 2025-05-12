@@ -253,6 +253,7 @@ class AdminCategoryController extends Controller
                         $category_path->path_id = $data->get('parent_id') ?? null;
                         $category_path->level = 0;
                         $category_path->update();
+
                     }else{
                         $category_path = new CategoryPath();
                         $category_path->category_id = $category->id;
@@ -261,6 +262,7 @@ class AdminCategoryController extends Controller
                         $category_path->save();
                     }
                 }
+				
 
                     return redirect('admin/storefront/category')->with('success', 'Category updated successfully.');
                 } else {

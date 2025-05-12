@@ -6,8 +6,8 @@
     <meta name="google-site-verification" content="bWM-VcqRmXRp-zkHn67X9F0y8A3WhVbcA1LBz3eoawk" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="{{ URL::asset('herculeen-logo.png'); }}" type="image/png">
-    <link rel="icon" href="{{ URL::asset('herculeen-logo.ico'); }}" type="image/x-icon">
+    <link rel="icon" href="{{ URL::asset('pstone-logo.png'); }}" type="image/png">
+    <link rel="icon" href="{{ URL::asset('pstone-logo.ico'); }}" type="image/x-icon">
     <title>@stack('setTitle')</title>
     <meta name="description" content="@stack('setDescription')">
     <meta name="keywords" content="@stack('setKeyword')">
