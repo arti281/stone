@@ -50,8 +50,8 @@
                     <h2 style="font-family: 'Arial', sans-serif;">{{ $product['product']->product_name }}</h2>
                     <div class="d-flex mt-4">
                         @if ($product['product']->stock_status == 'In Stock')
-                            <h5 class="me-3"><strong>Rs. </strong>{{ number_format($product['product']->mrp,0) }}</h5>
-                            {{-- <h5 class="text-danger"><strong>Rs. </strong><del>{{ number_format($product['product']->mrp,0) }}</del></h5> --}}
+                            <h5 class="me-3"><strong>Rs. </strong>{{ number_format($product['product']->price,0) }}</h5>
+                            <h5 class="text-danger"><strong>Rs. </strong><del>{{ number_format($product['product']->mrp,0) }}</del></h5>
                         @else
                             <p class="text-warning fw-bold">{{ $product['product']->stock_status }}</p>
                         @endif
@@ -60,7 +60,7 @@
                     <hr>
                 </div>
                 
-                {{-- <div class="mb-4">
+                <div class="mb-4">
                     <h2 class="fs-6">Colors</h2>
                     <div class="d-flex" style="column-gap: 15px">
                         @foreach ($colors as $color)
@@ -100,7 +100,7 @@
                     <div class="mt-3">
                         <span id="addWishlist" class="text-dark" style="cursor: pointer"><i class="fa-regular fa-heart"></i> ADD TO WISHLIST</span>
                     </div>
-                </div>  --}}
+                </div> 
 
                 {{-- Other link url --}}
                 @if(app('settings')['ecommerce_other_url_status'])
