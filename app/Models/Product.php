@@ -36,7 +36,6 @@ class Product extends Model
         $size_product_ids = [];
         $color_product_ids = [];
         $category_product_ids = [];
-
         //Get Category
         if (isset($filter['category_id']) && null !== $filter['category_id']) {
             $product_ids = '';
@@ -151,6 +150,9 @@ class Product extends Model
             }
         }
         
-        return DB::select($query);
+        if($size_product_ids || $color_product_ids || $category_product_ids){
+            return DB::select($query);
+        }
+        return [];
     }
 }
