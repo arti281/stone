@@ -49,7 +49,7 @@
                                     <label for="color_name">Color Name</label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" id="color_name" name="color_name" class="form-control p-2" value="{{ isset($category) && property_exists($category, 'color_name') ? $category->color_name : old('color_name') }}" placeholder="Color Name">
+                                    <input type="text" id="color_name" name="color_name" class="form-control p-2" value="{{ $color->color_name ?? old('color_name') }}" placeholder="Color Name">
                                 </div>
                                 <div class="errors">
                                     <span class="text-danger">
@@ -64,7 +64,7 @@
                                     <label for="hex_code">Hex Code</label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="color" id="hex_code" name="hex_code" class="form-control p-2" value="{{ isset($category) && property_exists($category, 'hex_code') ? $category->hex_code : old('hex_code') }}">
+                                    <input type="color" id="hex_code" name="hex_code" class="form-control p-2" value="{{ $color->code ?? old('hex_code') }}">
                                 </div>
                                 <div class="errors">
                                     <span class="text-danger">
@@ -79,7 +79,7 @@
                                     <label for="sort_order">Sort Order</label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" id="sort_order" name="sort_order" class="form-control p-2" value="{{ isset($category) && property_exists($category, 'sort_order') ? $category->sort_order : old('sort_order') }}" placeholder="Sort Order">
+                                    <input type="text" id="sort_order" name="sort_order" class="form-control p-2" value="{{ $color->sort ?? old('sort_order') }}" placeholder="Sort Order">
                                 </div>
                                 <div class="errors">
                                     <span class="text-danger">

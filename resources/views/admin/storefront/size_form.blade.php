@@ -49,7 +49,7 @@
                                     <label for="size_name">Size Name</label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" id="size_name" name="size_name" class="form-control p-2" value="{{ isset($category) && property_exists($category, 'size_name') ? $category->size_name : old('size_name') }}" placeholder="Color Name">
+                                    <input type="text" id="size_name" name="size_name" class="form-control p-2" value="{{ $size->size_name ?? old('size_name') }}" placeholder="Color Name">
                                 </div>
                                 <div class="errors">
                                     <span class="text-danger">
@@ -64,7 +64,7 @@
                                     <label for="sort_order">Sort Order</label>
                                 </div>
                                 <div class="col-10">
-                                    <input type="text" id="sort_order" name="sort_order" class="form-control p-2" value="{{ isset($category) && property_exists($category, 'sort_order') ? $category->sort_order : old('sort_order') }}" placeholder="Sort Order">
+                                    <input type="text" id="sort_order" name="sort_order" class="form-control p-2" value="{{ $size->sort ?? old('sort_order') }}" placeholder="Sort Order">
                                 </div>
                                 <div class="errors">
                                     <span class="text-danger">
