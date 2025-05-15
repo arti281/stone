@@ -60,23 +60,23 @@
                     <hr>
                 </div>
                 
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <h2 class="fs-6">Colors</h2>
                     <div class="d-flex" style="column-gap: 15px">
                         @foreach ($colors as $color)
                             <span class="text-center p-2 colors" data-color-id="{{ $color->id }}" style="cursor:pointer;border:2px solid {{ $color->code }}">{{ $color->color_name }}</span>   
                         @endforeach
                     </div>
-                </div>
+                </div> -->
                     
-                <div class="mb-4">
+                <!-- <div class="mb-4">
                     <h2 class="fs-6">Size</h2>
                     <div class="d-flex align-items-center" style="column-gap: 15px">
                         @foreach ($sizes as $size)
                             <span class="border text-center py-2 sizes" data-size-id="{{ $size->id }}" style="width:50px;cursor:pointer;">{{ $size->size_name }}</span>
                         @endforeach
                     </div>
-                </div>
+                </div> -->
                 <div class="mb-4">
                     <h2 class="fs-6">Quantity</h2>
                     <div class="d-flex" style="column-gap: 15px">
@@ -248,17 +248,17 @@
         let quantity = document.getElementById('quantity').value;
 
         let color_id = document.querySelector('.color-selected')
-        if(color_id) 
-            color_id = color_id.getAttribute('data-color-id')
+        // if(color_id) 
+        //     color_id = color_id.getAttribute('data-color-id')
 
-        let size_id = document.querySelector('.size-selected')
-        if(size_id) 
-            size_id = size_id.getAttribute('data-size-id')
+        // let size_id = document.querySelector('.size-selected')
+        // if(size_id) 
+        //     size_id = size_id.getAttribute('data-size-id')
 
-        if(!(color_id && size_id)){
-            showFlashMessage('error','Please select color and size.')
-            return 
-        }
+        // if(!(color_id && size_id)){
+        //     showFlashMessage('error','Please select color and size.')
+        //     return 
+        // }
 
         
         if(user_id){
@@ -270,8 +270,8 @@
                     user_id: user_id,
                     product_id: product_id,
                     quantity: quantity,
-                    color_id: color_id,
-                    size_id: size_id
+                    // color_id: color_id,
+                    // size_id: size_id
                 },
                 success: function(response) {
                     if (response.success) {

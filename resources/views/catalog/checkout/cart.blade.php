@@ -42,8 +42,8 @@
                                                     <p class="mb-0" style="font-size: 15px">
                                                         <a class="text-dark fw-bold" href="{{ route('catalog.product-detail', ['product_id' => $cart['product_id'], 'slug' => $cart['slug']]) }}">{{ $cart['product_name'] }}</a>
                                                     </p>
-                                                    <p class="mb-0 text-muted fs-6">Color: <span>{{ $cart['color_name'] }}</span></p>
-                                                    <p class="mb-0 text-muted fs-6">Size: <span>{{ $cart['size_name'] }}</span></p>
+                                                    <!-- <p class="mb-0 text-muted fs-6">Color: <span>{{ $cart['color_name'] ?? 'N/A' }}</span></p>
+                                                    <p class="mb-0 text-muted fs-6">Size: <span>{{ $cart['size_name'] ?? 'N/A' }}</span></p> -->
                                                     <p class="mb-0 text-muted">
                                                         @if ($cart['stock_status'] == 'In Stock')
                                                             <span class="badge bg-success">{{ $cart['stock_status'] }}</span>
@@ -55,20 +55,20 @@
                                                 <td>
                                                     @if ($cart['stock_status'] == 'In Stock')
                                                         <div class="d-flex" style="column-gap: 15px">
-                                                            <button class="border pb-2 text-center" style="width: 30px; height:30px" onclick="decreaseQunatity({{$cart['product_id']}}, {{$cart['color_id']}}, {{$cart['size_id']}})" ><i class="fa-solid fa-minus"></i></button>
-                                                            <input class="border text-center" style="width: 30px; height:30px" type="text" readonly id="quantity_{{$cart['product_id']}}_{{$cart['color_id']}}_{{$cart['size_id']}}" value="{{ $cart['quantity'] }}">
-                                                            <button class="border pb-2 text-center" style="width: 30px; height:30px" onclick="increaseQunatity({{$cart['product_id']}}, {{$cart['color_id']}}, {{$cart['size_id']}})"><i class="fa-solid fa-plus"></i></button>
+                                                            <button class="border pb-2 text-center" style="width: 30px; height:30px" onclick="decreaseQunatity({{$cart['product_id']}}, {{$cart['color_id'] ?? 0}}, {{$cart['size_id'] ?? 0}})" ><i class="fa-solid fa-minus"></i></button>
+                                                            <input class="border text-center" style="width: 30px; height:30px" type="text" readonly id="quantity_{{$cart['product_id']}}_{{$cart['color_id'] ?? 0}}_{{$cart['size_id'] ?? 0}}" value="{{ $cart['quantity'] }}">
+                                                            <button class="border pb-2 text-center" style="width: 30px; height:30px" onclick="increaseQunatity({{$cart['product_id']}}, {{$cart['color_id'] ?? 0}}, {{$cart['size_id'] ?? 0}})"><i class="fa-solid fa-plus"></i></button>
                                                         </div>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     @if ($cart['stock_status'] == 'In Stock')
-                                                    <strong>Rs.</strong><span id="price_{{$cart['product_id']}}_{{$cart['color_id']}}_{{$cart['size_id']}}">{{ $cart['price'] }}</span>
+                                                    <strong>Rs.</strong><span id="price_{{$cart['product_id']}}_{{$cart['color_id'] ?? 0}}_{{$cart['size_id'] ?? 0}}">{{ $cart['price'] }}</span>
                                                     @endif
                                                 </td>
                                                 <td>
                                                     <div class="d-flex justify-content-between" style="gap: 5px">
-                                                        <a href="{{ route('catalog.removeCartProduct', ['product_id' => $cart['product_id'], 'color_id' => $cart['color_id'], 'size_id' => $cart['size_id'], 'product_name' => $cart['product_name']]) }}" class="btn btn-danger">Remove</a>
+                                                        <a href="{{ route('catalog.removeCartProduct', ['product_id' => $cart['product_id'], 'color_id' => $cart['color_id'] ?? 0, 'size_id' => $cart['size_id'] ?? 0, 'product_name' => $cart['product_name']]) }}" class="btn btn-danger">Remove</a>
                                                     </div>
                                                 </td>
                                             </tr> 
@@ -169,8 +169,8 @@
                     user_id: user_id,
                     product_id: product_id,
                     quantity: total_quantity,
-                    color_id: color_id,
-                    size_id: size_id
+                    // color_id: color_id,
+                    // size_id: size_id
                 },
                 success: function(response) {
                     if (response.success) {
@@ -211,8 +211,8 @@
                     user_id: user_id,
                     product_id: product_id,
                     quantity: total_quantity,
-                    color_id: color_id,
-                    size_id: size_id
+                    // color_id: color_id,
+                    // size_id: size_id
                 },
                 success: function(response) {
                     if (response.success) {

@@ -38,10 +38,10 @@ class CartController extends Controller
                 "quantity" => $cart->quantity,
                 "stock_status" => $stock->name ?? '',
                 "price" => $product->price * $cart->quantity,
-                "size_id" => $size->id,
-                "size_name" => $size->size_name,
-                "color_id" => $color->id,
-                "color_name" => $color->color_name,
+                // "size_id" => $size->id,
+                // "size_name" => $size->size_name,
+                // "color_id" => $color->id,
+                // "color_name" => $color->color_name,
             ];
             if($product->stock_status_id == 3) {
                 $data['total_amount'] = $data['total_amount'] + $product->price * $cart->quantity;
@@ -59,8 +59,8 @@ class CartController extends Controller
                 'user_id'=> 'required',
                 'product_id'=> 'required',
                 'quantity'=> 'required',
-                'color_id'=> 'required',
-                'size_id'=> 'required',
+                // 'color_id'=> 'required',
+                // 'size_id'=> 'required',
             ]);
 
             if($validated['quantity'] <= 0 ){
@@ -71,7 +71,11 @@ class CartController extends Controller
                 return response()->json($array);
             }
 
-            $carts = Cart::where('user_id', $validated['user_id'])->where('product_id', $validated['product_id'])->where('color_id', $validated['color_id'])->where('size_id', $validated['size_id'])->first();
+            $carts = Cart::where('user_id', $validated['user_id'])
+            ->where('product_id', $validated['product_id'])
+            // ->where('color_id', $validated['color_id'])
+            // ->where('size_id', $validated['size_id'])
+            ->first();
             if($carts){
                 $carts->update([
                         "quantity" => $validated['quantity'],
@@ -109,8 +113,8 @@ class CartController extends Controller
                     "user_id" => $validated['user_id'],
                     "product_id" => $validated['product_id'],
                     "quantity" => $validated['quantity'],
-                    "color_id" => $validated['color_id'],
-                    'size_id'=> $validated['size_id'],
+                    // "color_id" => $validated['color_id'],
+                    // 'size_id'=> $validated['size_id'],
                 ]);
                 $array = [
                     "success" => true,
@@ -128,8 +132,8 @@ class CartController extends Controller
         try{
             Cart::where('user_id', session('isUser'))
             ->where('product_id', $product_id)
-            ->where('color_id', $color_id)
-            ->where('size_id', $size_id)
+            // ->where('color_id', $color_id)
+            // ->where('size_id', $size_id)
             ->delete();
             return redirect()->route('catalog.cart')->with('success', 'Your "'.$product_name.'" has been successfully removed from the cart!');
         }catch(Exception $e){
