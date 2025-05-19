@@ -22,9 +22,12 @@ class HomeController extends Controller
 
         $data['category_route'] = route('catalog.getAllCategories');
 
-        $data['categories'] = DB::table('category')->where('status', true)->limit(6)
-                                                   ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END, sort_order ASC')
-                                                   ->get();
+        $data['categories'] = DB::table('category')
+        ->where('status', true)
+        ->where('Parent_id', null)                                          
+        ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END, sort_order ASC')
+        ->limit(6)                                        
+        ->get();
         return view('catalog.index', $data);
     }
 }

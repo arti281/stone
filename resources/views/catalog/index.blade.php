@@ -74,9 +74,9 @@
       <!-- Left promo -->
       <div class="col-md-5 p-0 abc">
         <div class="position-relative">
-          <img src="{{ URL::asset('krishna-radha.png'); }}" alt="img" class="img-fluid w-100 image">
+          <img src="{{ URL::asset('image/products/4.jpg'); }}" alt="img" class="img-fluid w-100 image">
           <div class="position-absolute top-50 start-50 translate-middle text-white text-center middle">
-            <h4><a href="#" class="text-white text-decoration-none text">Radha Krishna</a></h4>
+            <h4><a href="http://127.0.0.1:8000/products/8/radha-krishan" class="text-white text-decoration-none text">Radha Krishna</a></h4>
           </div>
         </div>
       </div>
@@ -86,33 +86,33 @@
         <div class="row g-0">
           <div class="col-6 abc">
             <div class="position-relative">
-              <img src="{{ URL::asset('3.jpg'); }}" alt="img" class="img-fluid w-100 image">
+              <img src="{{ URL::asset('image/products/3.jpg'); }}" alt="img" class="img-fluid w-100 image">
               <div class="position-absolute top-50 start-50 translate-middle text-white text-center middle">
-                <h4><a href="#" class="text-white text-decoration-none text">Radha Krishna</a></h4>
+                <h4><a href="http://127.0.0.1:8000/products/8/radha-krishan" class="text-white text-decoration-none text">Radha Krishna</a></h4>
               </div>
             </div>
           </div>
           <div class="col-6 abc">
             <div class="position-relative">
-              <img src="{{ URL::asset('5.jpg'); }}" alt="img" class="img-fluid w-100 image">
+              <img src="{{ URL::asset('image/products/5.jpg'); }}" alt="img" class="img-fluid w-100 image">
               <div class="position-absolute top-50 start-50 translate-middle text-white text-center middle">
-                <h4><a href="#" class="text-white text-decoration-none text">Radha Krishna</a></h4>
+                <h4><a href="http://127.0.0.1:8000/products/8/radha-krishan" class="text-white text-decoration-none text">Radha Krishna</a></h4>
               </div>
             </div>
           </div>
           <div class="col-6 abc">
             <div class="position-relative">
-              <img src="{{ URL::asset('radha-krishna.jpg'); }}" alt="img" class="img-fluid w-100 image">
+              <img src="{{ URL::asset('image/products/hanumanji.jpg'); }}" alt="img" class="img-fluid w-100 image">
               <div class="position-absolute top-50 start-50 translate-middle text-white text-center middle">
-                <h4><a href="#" class="text-white text-decoration-none text">Ram Darbar</a></h4>
+                <h4><a href="http://127.0.0.1:8000/products/9/hanumanji" class="text-white text-decoration-none text">Hanumanji</a></h4>
               </div>
             </div>
           </div>
           <div class="col-6 abc">
             <div class="position-relative">
-              <img src="{{ URL::asset('8.jpg'); }}" alt="img" class="img-fluid w-100 image">
+              <img src="{{ URL::asset('image/products/8.JPG'); }}" alt="img" class="img-fluid w-100 image">
               <div class="position-absolute top-50 start-50 translate-middle text-white text-center middle">
-                <h4><a href="#" class="text-white text-decoration-none text">Ram Darbar</a></h4>
+                <h4><a href="http://127.0.0.1:8000/products/26/shiva" class="text-white text-decoration-none text">Shivji</a></h4>
               </div>
             </div>
           </div>
@@ -143,25 +143,18 @@
       <div class="tab-pane fade show active" id="popular" role="tabpanel">
         <div class="row g-4">
           <!-- Single Product -->
-          <div class="col-md-3">
+          <div class="col-md-3 abc">
             <div class="card h-100">
-              <img src="{{ URL::asset('7.jpg'); }}" class="card-img-top" alt="Polo Shirt">
-              <div class="card-body text-center">
-                <h5 class="card-title"><a href="#">Polo T-Shirt</a></h5>
-                <p class="card-text text-muted mb-1">$45.50 <del>$65.50</del></p>
-                <a href="#" class="btn btn-dark btn-sm"><i class="fa fa-shopping-cart me-1"></i>Add To Cart</a>
+              <img src="{{ URL::asset('image/products/1.JPG'); }}" class="card-img-top image" alt="Polo Shirt">
+              <div class="position-absolute top-50 start-50 translate-middle text-white text-center middle">
+                <h4><a href="#" class="text-white text-decoration-none text">Ram Drabar</a></h4>
               </div>
-              <!-- <div class="position-absolute top-0 end-0 d-flex flex-column p-2 gap-2">
-                <a href="#" title="Add to Wishlist" data-bs-toggle="tooltip"><i class="fa fa-heart-o text-dark"></i></a>
-                <a href="#" title="Compare" data-bs-toggle="tooltip"><i class="fa fa-exchange text-dark"></i></a>
-                <a href="#" title="Quick View" data-bs-toggle="modal" data-bs-target="#quick-view-modal"><i class="fa fa-search text-dark"></i></a>
-              </div> -->
             </div>
           </div>
 
           <div class="col-md-3">
             <div class="card h-100">
-              <img src="{{ URL::asset('6.jpg'); }}" class="card-img-top" alt="Polo Shirt">
+              <img src="{{ URL::asset('image/products/3.jpg'); }}" class="card-img-top" alt="Polo Shirt">
               <div class="card-body text-center">
                 <h5 class="card-title"><a href="#">Polo T-Shirt</a></h5>
                 <p class="card-text text-muted mb-1">$45.50 <del>$65.50</del></p>
@@ -172,7 +165,7 @@
 
           <div class="col-md-3">
             <div class="card h-100">
-              <img src="{{ URL::asset('5.jpg'); }}" class="card-img-top" alt="Polo Shirt">
+              <img src="{{ URL::asset('image/products/4.jpg'); }}" class="card-img-top" alt="Polo Shirt">
               <div class="card-body text-center">
                 <h5 class="card-title"><a href="#">Polo T-Shirt</a></h5>
                 <p class="card-text text-muted mb-1">$45.50 <del>$65.50</del></p>
@@ -183,7 +176,7 @@
 
           <div class="col-md-3">
             <div class="card h-100">
-              <img src="{{ URL::asset('3.jpg'); }}" class="card-img-top" alt="Polo Shirt">
+              <img src="{{ URL::asset('image/products/radha krishna.jpg'); }}" class="card-img-top" alt="Polo Shirt">
               <div class="card-body text-center">
                 <h5 class="card-title"><a href="#">Polo T-Shirt</a></h5>
                 <p class="card-text text-muted mb-1">$45.50 <del>$65.50</del></p>

@@ -20,6 +20,7 @@ class OrderController extends Controller
                     },
                     'color' => function ($colorQuery) {
                         $colorQuery->select('id', 'color_name'); // Specific fields for Color
+                        
                     },
                     'size' => function ($sizeQuery) {
                         $sizeQuery->select('id', 'size_name'); // Specific fields for Size

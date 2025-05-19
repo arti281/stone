@@ -52,8 +52,7 @@
                                             <thead>
                                                 <tr class="table-dark">
                                                     <th width="40%">Order Item</th>
-                                                    <th width="20%">Color</th>
-                                                    <th width="20%">Size</th>
+                                                    <!-- color and size-->
                                                     <th width="20%">Status</th>
                                                 </tr>
                                             </thead>
@@ -66,8 +65,7 @@
                                                             </a>
                                                             <span class="mb-0 fs-6">{{ $order->product->product_name }}</span>
                                                         </td>
-                                                        <td>{{ $order->color->color_name }}</td>
-                                                        <td>{{ $order->size->size_name }}</td>
+                                                        <!-- color and size value---->
                                                         <td>
                                                             @foreach ($order->orderHistory as $key => $history)
                                                                 @if ($key == 0)

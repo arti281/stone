@@ -147,20 +147,20 @@
                                                 alt="{{ $product->product_name }}" class="product-image"
                                                 style="max-height:300px;object-fit:contain;">
                                         </div>
-                                        {{-- <div class="cart-concern">
+                                         <div class="cart-concern">
                                             <div class="cart-button d-flex justify-content-center align-items-center p-1" style="background-color: #eceef1;">
                                             <div class="col-6 border-end">
-                                                <a href="#" class="text-decoration-none text-dark pe-3">
+                                                <a href="{{ route('catalog.wishlist') }}" class="text-decoration-none text-dark pe-3">
                                                     <i class="fa-regular fa-heart p-2 fs-4 rounded-circle" style="color:#ff006f"></i>
                                                 </a>
                                             </div>
                                                 <div class="col-6">
-                                                <a href="#" class="text-decoration-none text-dark">
+                                                <a href="{{ route('catalog.cart', ['product_id' => $product->product_id, 'slug' => $product->slug]) }}" class="text-decoration-none text-dark">
                                                         <i class="fa-solid fa-cart-plus p-2 fs-4 rounded-circle" style="color:#ff006f"></i>
                                                 </a>
                                                 </div>
                                             </div>
-                                        </div> --}}
+                                        </div>
                                         <div class="product-detail">
                                             <h3 class="product-title fs-6 truncate-lines mb-0">
                                                 <small>{{ $product->product_name }}</small></h3>
