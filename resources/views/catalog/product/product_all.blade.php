@@ -138,6 +138,9 @@
                     @if ($products)
                         <!-- Total -->
                         <div class="mb-3"><span>Total Products: <strong>{{ $pagination['total'] }}</strong></span></div>
+                        <!-- Alert message -->
+                        @include('catalog.common.ajax_alert')
+
                         @foreach ($products as $product)
                             <div class="col-6 col-sm-6 col-md-4 col-lg-3 products">
                                 <a href="{{ route('catalog.product-detail', ['product_id' => $product->product_id, 'slug' => $product->slug]) }}">
@@ -155,7 +158,7 @@
                                                 </a>
                                             </div>
                                                 <div class="col-6">
-                                                <a href="{{ route('catalog.cart', ['product_id' => $product->product_id, 'slug' => $product->slug]) }}" class="text-decoration-none text-dark">
+                                                <a href="javascript:void()" class="add-to-cart text-decoration-none text-dark" data-product-id="{{ $product->product_id }}">
                                                         <i class="fa-solid fa-cart-plus p-2 fs-4 rounded-circle" style="color:#ff006f"></i>
                                                 </a>
                                                 </div>
@@ -215,6 +218,41 @@
                 window.location.href = '/products' + '?' +query_string +'&sort=' + selectedValue;
             });
         }
+
+        // add cart
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', function () {
+                const product_id = this.getAttribute('data-product-id');
+                const user_id = {!! json_encode(session('isUser')) !!};
+                const action = {!! json_encode(route('catalog.addCart')) !!};
+                const quantity = 1; // Default or get from a quantity input if available
+
+                if (user_id) {
+                    $.ajax({
+                        url: action,
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            user_id: user_id,
+                            product_id: product_id,
+                            quantity: quantity,
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                showFlashMessage('success', response.message);
+                            } else {
+                                showFlashMessage('error', response.message);
+                            }
+                        },
+                        error: function () {
+                            showFlashMessage('error', 'An error occurred while adding to cart.');
+                        }
+                    });
+                } else {
+                    window.location.href = {!! json_encode(route('catalog.user-login')) !!};
+                }
+            });
+        });
 
     </script>
 
