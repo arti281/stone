@@ -153,7 +153,7 @@
                                          <div class="cart-concern">
                                             <div class="cart-button d-flex justify-content-center align-items-center p-1" style="background-color: #eceef1;">
                                             <div class="col-6 border-end">
-                                                <a href="{{ route('catalog.wishlist') }}" class="text-decoration-none text-dark pe-3">
+                                                <a href="javascript:void()" class="add-wishlist text-decoration-none text-dark pe-3" data-product-id="{{ $product->product_id }}">
                                                     <i class="fa-regular fa-heart p-2 fs-4 rounded-circle" style="color:#ff006f"></i>
                                                 </a>
                                             </div>
@@ -225,6 +225,41 @@
                 const product_id = this.getAttribute('data-product-id');
                 const user_id = {!! json_encode(session('isUser')) !!};
                 const action = {!! json_encode(route('catalog.addCart')) !!};
+                const quantity = 1; // Default or get from a quantity input if available
+
+                if (user_id) {
+                    $.ajax({
+                        url: action,
+                        method: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            user_id: user_id,
+                            product_id: product_id,
+                            quantity: quantity,
+                        },
+                        success: function (response) {
+                            if (response.success) {
+                                showFlashMessage('success', response.message);
+                            } else {
+                                showFlashMessage('error', response.message);
+                            }
+                        },
+                        error: function () {
+                            showFlashMessage('error', 'An error occurred while adding to cart.');
+                        }
+                    });
+                } else {
+                    window.location.href = {!! json_encode(route('catalog.user-login')) !!};
+                }
+            });
+        });
+
+        // add cart
+        document.querySelectorAll('.add-wishlist').forEach(button => {
+            button.addEventListener('click', function () {
+                const product_id = this.getAttribute('data-product-id');
+                const user_id = {!! json_encode(session('isUser')) !!};
+                const action = {!! json_encode(route('catalog.wishlist')) !!};
                 const quantity = 1; // Default or get from a quantity input if available
 
                 if (user_id) {

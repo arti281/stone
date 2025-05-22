@@ -15,7 +15,7 @@ class HomeController extends Controller
 
         // Product thumb template
         $data['product_thumb'] = ProductThumbController::index();
-
+dd($data['product_thumb']);
         $data['banners'] = DB::table('banners')->where('status', 1)->orderBy('sort','asc')->get();
 
         $data['product_route'] = route('catalog.product-all') . '?sort=latest';
@@ -28,6 +28,7 @@ class HomeController extends Controller
         ->orderByRaw('CASE WHEN sort_order = 0 THEN 1 ELSE 0 END, sort_order ASC')
         ->limit(6)                                        
         ->get();
+        
         return view('catalog.index', $data);
     }
 }

@@ -70,6 +70,7 @@ class ProductController extends Controller
 
         // Pagination
         $results = Product::getProducts($filter);
+        
         $perPage = 40;
         $paginator = Pagination::pagination($results, $perPage);
 

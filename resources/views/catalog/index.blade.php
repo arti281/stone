@@ -13,9 +13,9 @@
     @include('catalog.common.carousel')
 
     <!-- products -->
-    <section class="bg-dark">
+    <section class="bg-light">
         <div class="container-fluid px-4">
-            <!-- <div class="py-4">
+            <div class="py-4">
                 <div class="section-header d-flex flex-wrap align-items-center justify-content-between">
                     <h2 class="section-title fs-3">Featured Products</h2>            
                     <div class="btn-wrap">
@@ -24,7 +24,7 @@
                 </div>
                 All products
                 {!! $product_thumb !!}
-            </div> -->
+            </div>
 
             <!-- categories -->
             <div class="pb-4 cate">
@@ -144,46 +144,10 @@
         <div class="row g-4">
           <!-- Single Product -->
           <div class="col-md-3 abc">
-            <div class="card h-100">
-              <img src="{{ URL::asset('image/products/1.JPG'); }}" class="card-img-top image" alt="Polo Shirt">
-              <div class="position-absolute top-50 start-50 translate-middle text-white text-center middle">
-                <h4><a href="#" class="text-white text-decoration-none text">Ram Drabar</a></h4>
-              </div>
-            </div>
+            
           </div>
 
-          <div class="col-md-3">
-            <div class="card h-100">
-              <img src="{{ URL::asset('image/products/3.jpg'); }}" class="card-img-top" alt="Polo Shirt">
-              <div class="card-body text-center">
-                <h5 class="card-title"><a href="#">Polo T-Shirt</a></h5>
-                <p class="card-text text-muted mb-1">$45.50 <del>$65.50</del></p>
-                <a href="#" class="btn btn-dark btn-sm"><i class="fa fa-shopping-cart me-1"></i>Add To Cart</a>
-              </div>
-            </div>
-          </div>
 
-          <div class="col-md-3">
-            <div class="card h-100">
-              <img src="{{ URL::asset('image/products/4.jpg'); }}" class="card-img-top" alt="Polo Shirt">
-              <div class="card-body text-center">
-                <h5 class="card-title"><a href="#">Polo T-Shirt</a></h5>
-                <p class="card-text text-muted mb-1">$45.50 <del>$65.50</del></p>
-                <a href="#" class="btn btn-dark btn-sm"><i class="fa fa-shopping-cart me-1"></i>Add To Cart</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-3">
-            <div class="card h-100">
-              <img src="{{ URL::asset('image/products/radha krishna.jpg'); }}" class="card-img-top" alt="Polo Shirt">
-              <div class="card-body text-center">
-                <h5 class="card-title"><a href="#">Polo T-Shirt</a></h5>
-                <p class="card-text text-muted mb-1">$45.50 <del>$65.50</del></p>
-                <a href="#" class="btn btn-dark btn-sm"><i class="fa fa-shopping-cart me-1"></i>Add To Cart</a>
-              </div>
-            </div>
-          </div>
           
           <!-- Repeat similar .col-md-3 blocks for each product -->
         </div>
