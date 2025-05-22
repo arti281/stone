@@ -32,7 +32,7 @@
                         <h2 class="fs-5 mb-3">QUICK LINKS</h2>
                         <ul class="list-unstyled mb-0">
                             @foreach ($service_categories as $category)
-                                @if($category->menu_top !=== 1)
+                                @if($category->menu_top !== 1)
                                     <li><a class="text-dark" href="{{ route('catalog.product-all', [$category->id, $category->slug]) }}">{{ $category->category_name }}</a></li>
                                 @endif
                             @endforeach
