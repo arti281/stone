@@ -32,7 +32,7 @@
                         <h2 class="fs-5 mb-3">QUICK LINKS</h2>
                         <ul class="list-unstyled mb-0">
                             @foreach ($service_categories as $category)
-                                @if($category->menu_top !=== 1)
+                                @if($category->menu_top !== 1)
                                     <li><a class="text-dark" href="{{ route('catalog.product-all', [$category->id, $category->slug]) }}">{{ $category->category_name }}</a></li>
                                 @endif
                             @endforeach
@@ -52,13 +52,15 @@
                             @endforeach  
                         </ul>
                         <a class="text-dark" href="{{ route('catalog.privacyPolicy') }}">Return/Replacement Policy</a>
+                        <a class="text-dark" href="{{ route('catalog.aboutus') }}">About Us</a><br/>
+                        <a class="text-dark" href="{{ route('catalog.contactus') }}">Contact Us</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4 py-3">
                 <h2 class="fs-5 mb-4">CONTACT US</h2>
                 
-                <p class="fs-6">Pstone Arts, Govindgarh Road, Behind the Jagannath Temple, Sikri, Deeg<br/> Pin Code - 321024</p>
+        <p class="fs-6">Pstone Arts, Govindgarh Road, Behind the Jagannath Temple, Sikri, Deeg<br/> Pin Code - 321024</p>
            <a href="https://www.facebook.com/Pstonestatues" class="btn btn-primary"><i class="fab fa-facebook-f"></i></a>
         <a href="https://x.com/ArtsPstone" class="btn btn-info"><i class="fab fa-twitter"></i></a>
         <a href="https://www.instagram.com/official_pstonearts/" class="btn btn-danger"><i class="fab fa-instagram"></i></a>

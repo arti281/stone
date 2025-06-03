@@ -11,11 +11,9 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     public function index(){
-        // $data['product_thumb'] = view('catalog.product.thumb')->render();
-
         // Product thumb template
         $data['product_thumb'] = ProductThumbController::index();
-dd($data['product_thumb']);
+
         $data['banners'] = DB::table('banners')->where('status', 1)->orderBy('sort','asc')->get();
 
         $data['product_route'] = route('catalog.product-all') . '?sort=latest';
@@ -31,4 +29,7 @@ dd($data['product_thumb']);
         
         return view('catalog.index', $data);
     }
+
+    
 }
+
