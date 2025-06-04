@@ -32,6 +32,7 @@ use App\Http\Controllers\Admin\Setting\EcommerceLinkController;
 use App\Http\Controllers\Admin\Storefront\AdminProductController;
 use App\Http\Controllers\Admin\Storefront\AdminCategoryController;
 use App\Http\Controllers\Catalog\Information\InformationController;
+use App\Http\Controllers\Catalog\Information\ContactController;
 use App\Http\Controllers\Admin\Storefront\ProductVariationController;
 use App\Http\Controllers\Admin\Sales\OrderController as SalesOrderController;
 use App\Http\Controllers\Catalog\Search\SearchController;
@@ -99,7 +100,13 @@ Route::name('catalog.')->group(function () {
     });
 
     Route::get('return-replacement-policy', [InformationController::class, 'privacyPolicy'])->name('privacyPolicy');
+    Route::get('/aboutus', [InformationController::class, 'about'])->name('aboutus');
+    Route::get('/contactus', [ContactController::class, 'show'])->name('contact.form');
+    Route::post('/contactus', [ContactController::class, 'submit'])->name('contact.submit');
     
+    
+
+
 });
 
 // Admin

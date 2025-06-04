@@ -10,6 +10,12 @@
             <div class="col-6 col-md-12">
                 <div class="nav_desktop nav_mobile_view">
                     <ul class="list-unstyled text-white d-flex justify-content-center mb-0">
+                    <li class="px-3 fs-9 navbar_items active-link">
+                                    <a class="text-darktext-decoration-none text-white text-uppercase" href="{{'/'}}">Home</a>
+</li>
+                    <li class="px-3 fs-9 navbar_items active-link">
+                                    <a class="text-darktext-decoration-none text-white text-uppercase" href="{{ route('catalog.aboutus') }}">About Us</a>
+</li>
                         @foreach ($service_categories as $category)
                             @if ($category->menu_top === 1)
                                 <li class="px-3 fs-9 navbar_items active-link">
@@ -44,6 +50,9 @@
                                     @endforeach
                                 @endif
                         @endforeach   
+                         <li class="px-3 fs-9 navbar_items active-link">
+                                    <a class="text-darktext-decoration-none text-white text-uppercase" href="{{ route('catalog.contactus') }}">Contact Us</a>
+</li>
                     </ul>      
                 </div>
                 <div class="nav_mobile text-end column-left-mobile">
