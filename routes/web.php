@@ -101,8 +101,7 @@ Route::name('catalog.')->group(function () {
 
     Route::get('return-replacement-policy', [InformationController::class, 'privacyPolicy'])->name('privacyPolicy');
     Route::get('/aboutus', [InformationController::class, 'about'])->name('aboutus');
-    Route::get('/contactus', [ContactController::class, 'show'])->name('contact.form');
-    Route::post('/contactus', [ContactController::class, 'submit'])->name('contact.submit');
+    Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
     
     
 
