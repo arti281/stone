@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Contact;
+use App\Mail\ContactMail;
 
 class ContactController extends Controller
 {   
@@ -18,22 +19,23 @@ public function show()
     {
         // 1. Validate
         $request->validate([
-            'name' => 'required|min:3',
-            'email' => 'required|email',
-            'Mobile' => 'required',
-            'message' => 'required|min:10',
-        ]);
+      'name' => 'required|string|max:255',
+        'email' => 'required|email',
+        'mobile' => [
+            'required',
+            'regex:/^[6-9][0-9]{9}$/', // Indian mobile numbers
+        ],
+        'message' => 'required',
+    ]);
            
-        Contact::create($request->only(['name', 'email', 'mobile', 'message']));
-        // 2. Send email
-        // Mail::raw("Message from: {$request->name}\nEmail: {$request->email}\n\n{$request->message}", function ($msg) use ($request) {
-        //     $msg->to('pstonearts02@gmail.com')
-        //         ->subject($request->subject)
-        //         ->replyTo($request->email);
-        // });
-        
+       $data = $request->only(['name', 'email', 'mobile', 'message']);
 
-        // 3. Redirect with success
-        return back()->with('success', 'Thanks for contacting us!');
+    // ✅ Save to database
+    Contact::create($data);
+
+    // ✅ Send email
+    Mail::to('pstonearts02@gmail.com')->send(new ContactMail($data));
+
+    return back()->with('success', 'Your message has been sent and saved!');
     }
 }

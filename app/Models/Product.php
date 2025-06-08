@@ -81,4 +81,9 @@ class Product extends Model
         return DB::select($query);
     }
 
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
+
 }

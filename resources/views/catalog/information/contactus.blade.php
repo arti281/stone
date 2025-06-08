@@ -1,7 +1,7 @@
 @extends('catalog.common.base')
 
 @push('setTitle')
-    Return/Replacement Policy
+    Contact Us
 @endpush
 
 @section('content')
@@ -37,6 +37,9 @@
             @endforeach
         </ul>
     @endif
+    @error('mobile')
+    <div class="text-danger">{{ $message }}</div>
+@enderror
         <form action="{{ route('catalog.contactus') }}" method="POST">
          @csrf
           <div class="row mb-3">
@@ -50,7 +53,7 @@
           <div class="row mb-3">
             <div class="col-md-6">
               <label for="mobile" class="form-label">Mobile Number</label>
-              <input type="tel" class="form-control" id="mobile" name="mobile" value="{{ old('mobile') }}"placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
+              <input type="text" class="form-control" name="mobile" value="{{ old('mobile') }}"placeholder="Enter your mobile number" pattern="[0-9]{10}" required>
             </div>
           </div>
           <div class="mb-3">
