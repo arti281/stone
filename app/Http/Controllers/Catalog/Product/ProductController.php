@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\Review;
 use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,6 +26,7 @@ class ProductController extends Controller
 
         $data['colors'] = Color::whereIn('id', $colorIds)->get();
         $data['sizes'] = Size::whereIn('id', $sizeIds)->get();
+        $data['reviews'] = Review::where('product_id', $product_id)->paginate();
         
         return view('catalog.product.product', $data);
     }

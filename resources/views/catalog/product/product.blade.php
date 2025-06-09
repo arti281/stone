@@ -195,18 +195,20 @@
                 <!-- review----->
                 <form action="{{ route('catalog.reviews') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="product_id" value="{{ $product['product']->id }}">
                     
                     <textarea name="review" rows="4" class="form-control" required></textarea>
                     
                     <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
                 </form>
                 <li class="nav-item" role="presentation">
-                    @foreach($product->reviews as $review)
-                <div class="border p-2 my-2">
-                    <strong>Review:</strong> {{ $review->review }}
-                </div>
-            @endforeach
+                    @if (!empty($reviews))
+                        @foreach($reviews as $review)
+                            <div class="border p-2 my-2">
+                                <strong>Review:</strong> {{ $review->review }}
+                            </div>
+                        @endforeach
+                    @endif
                     {{-- <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review</button> --}}
                 </li>
             </ul>
