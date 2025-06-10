@@ -17,16 +17,16 @@ class ReviewController extends Controller
             'review' => 'required|string|max:1000',
         ]);
 
-        if(Auth::check()){
+        if(!empty(session('isUser'))){
             Review::create([
                 'product_id' => $request->product_id,
                 'review' => $request->review,
-                'user_id' => Auth::user()->id,
+                'user_id' => session('isUser'),
             ]);
             return back()->with('success', 'Review submitted successfully!');
         }
 
-        return back()->with('success', 'Review not submitted successfully!');
+        return redirect()->route('catalog.user-login');
     }
 }
 
