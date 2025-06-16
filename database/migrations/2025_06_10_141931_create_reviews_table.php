@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('review');
+            $table->tinyInteger('rating'); // rating from 1 to 5
             $table->timestamps();
         });
     }

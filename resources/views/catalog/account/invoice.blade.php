@@ -164,8 +164,8 @@
                     <thead>
                         <tr>
                             <th>Item</th>
-                            <th>Color</th>
-                            <th>Size</th>
+                            {{-- <th>Color</th>
+                            <th>Size</th> --}}
                             <th>Quantity</th>
                             <th>Amount</th>
                         </tr>
@@ -174,8 +174,8 @@
                         @foreach ($orderMaster->orders as $item)
                             <tr>
                                 <td>{{ $item->product->product_name }}</td>
-                                <td>{{ $item->color->color_name }}</td>
-                                <td>{{ $item->size->size_name }}</td>
+                                {{-- <td>{{ $item->color->color_name }}</td>
+                                <td>{{ $item->size->size_name }}</td> --}}
                                 <td>{{ $item->quantity }}</td>
                                 <td><span style="font-size: 16px">₹</span>{{ $item->price }}</td>
                             </tr>
@@ -187,7 +187,7 @@
                 <table>
                     <tr>
                         <th>Subtotal:</th>
-                        <td>$3380.00</td>
+                        <td>{{ $item->price }}</td>
                     </tr>
                     <tr>
                         <th>Discount:</th>
@@ -199,10 +199,10 @@
                     </tr>
                     <tr>
                         <th>Paid:</th>
-                        <td>$0.00</td>
+                        <td>{{ $item->price }}</td>
                     </tr>
                 </table>
-                <div class="total">Total: $3380.00</div>
+                <div class="total">Total: {{ $item->price }}</div>
             </div>
         </div>
     </div>

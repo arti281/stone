@@ -205,6 +205,7 @@
                                 <thead>
                                     <tr>
                                         <th width="20%">Product Order ID</th>
+                                        <th width="20%">Product Image</th>
                                         <th width="20%">Product Name</th>
                                         <th width="20%">Quantity</th>
                                         <th width="20%">Price</th>
@@ -215,6 +216,7 @@
                                     @foreach ($orders as $order)
                                         <tr>
                                             <td><strong>{{ $order->id }}</strong></td>
+                                            <td>                                                                <img class="p-1 me-3" height="70" src="{{ ($order->product->image) ? asset("image/cache/products").'/'.($order->product->id .'/'. str_replace(".jpg",'',$order->product->image) .'_100x100.jpg') : asset('not-image-available.png')}}" alt=""></td>
                                             <td>{{ $order->product_name }}</td>
                                             <td>{{ $order->quantity }}</td>
                                             <td><i class="fa-solid fa-indian-rupee-sign"></i> {{ number_format($order->price, 0) }}</td>

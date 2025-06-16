@@ -16,6 +16,10 @@
             background-color: #000;
             color: #fff !important;
         }
+        
+    .star-rating .fa-star { cursor: pointer; color: #ccc; }
+    .star-rating .fa-star.checked { color: #ffc107; }
+
     </style>
 @endpush
 
@@ -192,25 +196,7 @@
                 <li class="nav-item" role="presentation">
                   <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description" type="button" role="tab" aria-controls="description" aria-selected="false">Description</button>
                 </li>
-                <!-- review----->
-                <form action="{{ route('catalog.reviews') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="product_id" value="{{ $product['product']->id }}">
-                    
-                    <textarea name="review" rows="4" class="form-control" required></textarea>
-                    
-                    <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
-                </form>
-                <li class="nav-item" role="presentation">
-                    @if (!empty($reviews))
-                        @foreach($reviews as $review)
-                            <div class="border p-2 my-2">
-                                <strong>Review:</strong> {{ $review->review }}
-                            </div>
-                        @endforeach
-                    @endif
-                    {{-- <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review</button> --}}
-                </li>
+                <li class="nav-item" role="presentation"> <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">Review</button></li>
             </ul>
             <div class="tab-content" id="myTabContent">
                 <!-- Description -->
@@ -222,6 +208,39 @@
 
                 <!-- Review -->
                 <div class="tab-pane fade show" id="review" role="tabpanel" aria-labelledby="review-tab">
+                    <!-- review----->
+                <form action="{{ route('catalog.reviews') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product['product']->id }}">
+                    
+                    <br>
+                    <div class="star-rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <i class="fa fa-star" data-index="{{ $i }}"></i>
+                    @endfor
+                </div>
+                    <input type="hidden" placeholder="rating" id="rating" name="rating">
+
+                    <textarea name="review" rows="4" class="form-control" required></textarea>
+                    
+                    <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
+                </form>
+    
+                    @if (!empty($reviews))
+                        @foreach($reviews as $review)
+                        <div>
+                            @for ($i = 1; $i <= 5; $i++)
+                                <i class="fa fa-star {{ $i <= $review->rating ? 'text-warning' : '' }}"></i>
+                            @endfor
+                        </div>
+
+                            <div class="border p-2 my-2">
+                                <strong>Review:</strong> {{ $review->review }}
+                            </div>
+
+                        @endforeach
+                    @endif
+    
                 </div>
             </div>
         </div>
@@ -354,6 +373,23 @@
             let total_quantity = document.getElementById('quantity').value = current_quantity -  1;
         }
     }
+
+    // rating
+
+    let stars = document.querySelectorAll('.star-rating .fa-star');
+    let ratingInput = document.getElementById('rating');
+
+    stars.forEach(star => {
+        star.addEventListener('click', function () {
+            let rating = this.getAttribute('data-index');
+            ratingInput.value = rating;
+
+            stars.forEach((s, i) => {
+                s.classList.toggle('checked', i < rating);
+            });
+        });
+    });
+
  </script>
 
 @endif

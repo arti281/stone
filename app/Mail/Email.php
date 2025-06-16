@@ -9,6 +9,7 @@ use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Support\Facades\App;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -19,13 +20,16 @@ class Email extends Mailable
     /**
      * Create a new message instance.
      */
-    public $emailData;
-    public $siteTitle;
+    protected $emailData;
+    protected $siteTitle;
+    protected $action;
+    
 
-    public function __construct($emailData)
+    public function __construct($emailData, $action)
     {
         $this->emailData = $emailData;
         $this->siteTitle = isset(app('settings')['site_title']) ? app('settings')['site_title'] : '';
+        $this->action = $action;
     }
 
     /**
@@ -51,8 +55,16 @@ class Email extends Mailable
                 'logo' => url(isset(app('settings')['desktop_logo']) ? app('settings')['desktop_logo'] : '')
             ]
         );
-    }
 
+         if ($this->action == 'Invoice') {
+            $view = 'catalog.account.invoice';
+        }
+    }
+    public function build()
+    {
+        return $this->subject('Your Product Invoice')
+                    ->view('emails.invoice');  // create this Blade view
+    }
     /**
      * Get the attachments for the message.
      *
