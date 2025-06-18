@@ -48,8 +48,12 @@ class Email extends Mailable
      */
     public function content(): Content
     {       
+        if($this->action == 'Payment'){
+            $view = 'emails.invoice';
+        }
+
         return new Content(
-            view: 'catalog.common.email',
+            view: $view ?? '',
             with: [
                 'emailData' => $this->emailData,
                 'logo' => url(isset(app('settings')['desktop_logo']) ? app('settings')['desktop_logo'] : '')

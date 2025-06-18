@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Address;
 use App\Models\Order;
 use App\Models\OrderMaster;
+use App\Models\Payment;
 use App\Models\ProductPrice;
 use App\Models\ProductVariation;
 use App\Models\User;
@@ -149,6 +150,15 @@ class CheckoutController extends Controller
 
             // delete cart items
             // Cart::where('user_id', session('isUser'))->delete();
+
+            // Payment
+            Payment::create([
+                "user_id" => session('isUser'),
+                "order_master_id" => $order_master->id,
+                "payment_method" => $validated['payment_method'],
+                "status" => 'pending',
+                "amount" => $data['total_amount'],
+            ]);
 
         }
         // Razorpay payment method

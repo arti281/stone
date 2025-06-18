@@ -7,9 +7,9 @@
     <h2>Thank you for your order!</h2>
     <div class="invoice-info">
                 <hr>
-                <p><strong>Order ID:</strong> <span>{{ $orderMaster->id }}</span></p>
-                <p><strong>Order Date:</strong> <span>{{ $orderMaster->created_at->format('d M Y') }}</span></p>
-                <p><strong>Invoice No:</strong> <span>{{ $orderMaster->invoice_prefix }}{{ $orderMaster->invoice_no }}</span></p>
+                <p><strong>Order ID:</strong> <span>{{ $emailData['orderMaster']->id }}</span></p>
+                <p><strong>Order Date:</strong> <span>{{ $emailData['orderMaster']->created_at->format('d M Y') }}</span></p>
+                <p><strong>Invoice No:</strong> <span>{{ $emailData['orderMaster']->invoice_prefix }}{{ $emailData['orderMaster']->invoice_no }}</span></p>
             </div>
 
                         <div class="details">
@@ -24,7 +24,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($orderMaster->orders as $item)
+                        @foreach ($emailData['orderMaster']->orders as $item)
                             <tr>
                                 <td>{{ $item->product->product_name }}</td>
                                 {{-- <td>{{ $item->color->color_name }}</td>
