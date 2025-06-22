@@ -20,9 +20,9 @@ class Email extends Mailable
     /**
      * Create a new message instance.
      */
-    protected $emailData;
-    protected $siteTitle;
-    protected $action;
+    public $emailData;
+    public $siteTitle;
+    public $action;
     
 
     public function __construct($emailData, $action)
@@ -47,7 +47,10 @@ class Email extends Mailable
      * Get the message content definition.
      */
     public function content(): Content
-    {       
+    {   
+        if ($this->action == 'OTP') {
+         $view = 'emails.otp'; // ✅ must exist
+}    
         if($this->action == 'Payment'){
             $view = 'emails.invoice';
         }
@@ -56,6 +59,7 @@ class Email extends Mailable
             view: $view ?? '',
             with: [
                 'emailData' => $this->emailData,
+                'orderMaster' => $this->emailData['orderMaster'] ?? null,
                 'logo' => url(isset(app('settings')['desktop_logo']) ? app('settings')['desktop_logo'] : '')
             ]
         );

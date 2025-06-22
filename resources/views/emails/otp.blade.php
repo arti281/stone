@@ -1,0 +1,1 @@
+<h2>Your OTP is: {{ $emailData['email_otp'] }}</h2>

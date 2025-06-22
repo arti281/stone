@@ -30,7 +30,7 @@ class LoginController extends Controller
             $password = $request->request->get('password');
             $hashedPassword = Hash::check($password, $user->password);
             if($hashedPassword){
-                if ($user->status) {
+                if ($user->status==1) {
                     $request->session()->put('isUser', $user->id);
                     $request->session()->put('user_name',$user->name);
                     return redirect()->route('catalog.front-user-account');
@@ -79,7 +79,12 @@ class LoginController extends Controller
             $otp = rand(100000, 999999);
             self::sendMail($email, $subject, null, $otp, null);
 
-            Session::put('register_data', $data);
+            Session::put('email_otp', $otp);
+                Session::put('register_data', [
+                    'name' => $data->get('name'),
+                    'email' => $data->get('email'),
+                    'password' => $data->get('password')
+                ]);
 
             return redirect()->route('catalog.verifyOtpPage');
         
@@ -203,37 +208,47 @@ class LoginController extends Controller
             "email_otp" => $otp,
             "url" => $url
         ];
-        Session::put('email_otp', $otp);
-        Mail::to($email)->send(new Email($emailData));
+        
+         if ($otp) {
+        Session::put('email_otp', $otp); // ✅ double check this
+    }
+        $action = 'OTP';
+         Mail::to($email)->send(new \App\Mail\Email($emailData, $action));
 
     }
 
     public function registeredUserData(Request $request){
-        $getSessionOtp = Session::get('email_otp');
-        $getOtp = (int) $request->request->get('otp');
+    $getSessionOtp = Session::get('email_otp');
+    $getOtp = (int) $request->request->get('otp');
 
-        // verifying otp
-        if($getOtp !== $getSessionOtp){
-            return redirect()->route('catalog.verifyOtpPage')->with('error', 'The OTP you entered is incorrect. Please check your email and try again.');
-        }
-
-        $data = Session::get('register_data');
-
-        $register = User::create([
-            "name" => $data->get('name'),
-            "email" => $data->get('email'),
-            "email_verified_at" => now(),
-            "password" => Hash::make($data->get('password')),
-            "status" => 1
-        ]);
-
-        session()->forget('email_otp');
-        session()->forget('register_data');
-
-        if($register){
-            return redirect()->route('catalog.user-login')->with('success', 'Congratulations! Your registration was successful. You can now log in to your account.!');
-        }else{
-            return redirect()->route('catalog.user-login')->with('success', 'Oops! Something went wrong. Please check the form and try again.');
-        }
+    // verifying otp
+    if($getOtp !== $getSessionOtp){
+        return redirect()->route('catalog.verifyOtpPage')->with('error', 'The OTP you entered is incorrect. Please check your email and try again.');
     }
+
+    $data = Session::get('register_data');
+
+    // ✅ Add this null check:
+    if (!$data) {
+        return redirect()->route('catalog.user-login')->with('error', 'Session expired. Please register again.');
+    }
+
+    $register = User::create([
+        "name" => $data['name'],
+        "email" => $data['email'],
+        "email_verified_at" => now(),
+        "password" => Hash::make($data['password']),
+        "status" => 1
+    ]);
+
+    session()->forget('email_otp');
+    session()->forget('register_data');
+
+    if($register){
+        return redirect()->route('catalog.user-login')->with('success', 'Congratulations! Your registration was successful. You can now log in to your account.!');
+    }else{
+        return redirect()->route('catalog.user-login')->with('error', 'Oops! Something went wrong. Please check the form and try again.');
+    }
+}
+
 }
