@@ -49,8 +49,8 @@ class Email extends Mailable
     public function content(): Content
     {   
         if ($this->action == 'OTP') {
-         $view = 'emails.otp'; // ✅ must exist
-}    
+            $view = 'emails.otp';
+        }    
         if($this->action == 'Payment'){
             $view = 'emails.invoice';
         }
@@ -59,7 +59,6 @@ class Email extends Mailable
             view: $view ?? '',
             with: [
                 'emailData' => $this->emailData,
-                'orderMaster' => $this->emailData['orderMaster'] ?? null,
                 'logo' => url(isset(app('settings')['desktop_logo']) ? app('settings')['desktop_logo'] : '')
             ]
         );

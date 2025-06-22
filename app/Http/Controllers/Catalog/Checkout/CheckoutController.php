@@ -149,7 +149,7 @@ class CheckoutController extends Controller
             }
 
             // delete cart items
-            // Cart::where('user_id', session('isUser'))->delete();
+            Cart::where('user_id', session('isUser'))->delete();
 
             // Payment
             Payment::create([
