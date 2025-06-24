@@ -215,10 +215,10 @@
                     
                     <br>
                     <div class="star-rating">
-                    @for ($i = 1; $i <= 5; $i++)
-                        <i class="fa fa-star" data-index="{{ $i }}"></i>
-                    @endfor
-                </div>
+                        @for ($i = 1; $i <= 5; $i++)
+                            <i class="fa fa-star" data-index="{{ $i }}"></i>
+                        @endfor
+                    </div>
                     <input type="hidden" placeholder="rating" id="rating" name="rating">
 
                     <textarea name="review" rows="4" class="form-control" required></textarea>
@@ -226,47 +226,47 @@
                     <button type="submit" class="btn btn-primary mt-2">Submit Review</button>   
                 </form>
     
-                    @if (!empty($reviews))
-                        @foreach($reviews as $review)
-                        <div>
-                            @for ($i = 1; $i <= 5; $i++)
-                                <i class="fa fa-star {{ $i <= $review->rating ? 'text-warning' : '' }}"></i>
-                            @endfor
-                        </div>
+                    {{-- Loop through reviews --}}
+                    @foreach ($reviews as $review)
+                        <div class="mt-3 mb-4 pb-3 border-bottom">
+                            <div>
+                                <span class="ps-2">Rating:</span>
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <i class="fa fa-star {{ $i <= $review->rating ? 'text-warning' : '' }}"></i>
+                                @endfor
+                            </div>
 
-                            <div class="border p-2 my-2">
+                            <div class="p-2">
                                 <strong>Review:</strong> {{ $review->review }}
                             </div>
 
-                        @endforeach
-                    @endif
-    
-       {{-- Loop through reviews --}}
-    @foreach ($reviews as $review)
-    <div>
-        <strong>{{ $review->name }}</strong>
-        <p>{{ $review->comment }}</p>
+                            @if ($review->replies && $review->replies->count())
+                                <div class="ms-4">
+                                    @foreach ($review->replies as $reply)
+                                        <div class="mb-1 text-muted">
+                                            <strong>{{ $reply->name }}:</strong> {{ $reply->reply }}
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
 
-        {{-- Show replies --}}
-        @if ($review->replies && $review->replies->count())
-            @foreach ($review->replies as $reply)
-                <div class="ms-4 text-muted">
-                    <strong>{{ $reply->name }}:</strong> {{ $reply->reply }}
-                </div>
-            @endforeach
-        @endif
+                            <button type="button" class="btn btn-sm btn-outline-secondary mt-2" onclick="toggleReplyForm({{ $review->id }})">
+                                Reply
+                            </button>
 
-        {{-- Reply form --}}
-        {{-- <button onclick="document.getElementById('reply-form-{{ $review->id }}').classList.toggle('hidden')">Reply</button> --}}
-        <form id="reply-form-{{ $review->id }}" class="hidden" method="POST" action="{{ route('catalog.review-replies') }}">
-            @csrf
-            <input type="hidden" name="review_id" value="{{ $review->id }}">
-            <input type="text" name="name" required placeholder="Your Name"><br/>
-            <textarea name="reply" rows="4" class="form-control" required></textarea>
-            <button type="submit" class="btn btn-dark mt-2">Submit Reply</button>
-        </form>
-    </div>
-@endforeach
+                            <form id="reply-form-{{ $review->id }}" class="d-none mt-2 ms-4" method="POST" action="{{ route('catalog.review-replies') }}">
+                                @csrf
+                                <input type="hidden" name="review_id" value="{{ $review->id }}">
+                                <input type="text" name="name" class="form-control mb-2" required placeholder="Your Name">
+                                <textarea name="reply" rows="3" class="form-control" required placeholder="Your Reply"></textarea>
+                                <button type="submit" class="btn btn-dark mt-2">Submit Reply</button>
+                            </form>
+                        </div>
+                    @endforeach
+
+                    <div class="mt-4">
+                        {{ $reviews->links() }}
+                    </div>
 
                 </div>
             </div>
@@ -275,6 +275,12 @@
 </section>
 
 <script>
+    // reviews
+    function toggleReplyForm(id) {
+        const form = document.getElementById('reply-form-' + id);
+        form.classList.toggle('d-none');
+    }
+
     const product_side_images = document.querySelectorAll('.product_side_image');
     product_side_images.forEach(side_image => {
         side_image.addEventListener('mouseover', () => {

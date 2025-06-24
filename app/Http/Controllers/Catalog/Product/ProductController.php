@@ -26,7 +26,7 @@ class ProductController extends Controller
 
         $data['colors'] = Color::whereIn('id', $colorIds)->get();
         $data['sizes'] = Size::whereIn('id', $sizeIds)->get();
-        $data['reviews'] = Review::where('product_id', $product_id)->paginate();
+        $data['reviews'] = Review::with('replies')->where('product_id', $product_id)->paginate();
         
         return view('catalog.product.product', $data);
     }
