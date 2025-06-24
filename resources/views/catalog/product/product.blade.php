@@ -223,7 +223,7 @@
 
                     <textarea name="review" rows="4" class="form-control" required></textarea>
                     
-                    <button type="submit" class="btn btn-primary mt-2">Submit Review</button>
+                    <button type="submit" class="btn btn-primary mt-2">Submit Review</button>   
                 </form>
     
                     @if (!empty($reviews))
@@ -241,6 +241,33 @@
                         @endforeach
                     @endif
     
+       {{-- Loop through reviews --}}
+    @foreach ($reviews as $review)
+    <div>
+        <strong>{{ $review->name }}</strong>
+        <p>{{ $review->comment }}</p>
+
+        {{-- Show replies --}}
+        @if ($review->replies && $review->replies->count())
+            @foreach ($review->replies as $reply)
+                <div class="ms-4 text-muted">
+                    <strong>{{ $reply->name }}:</strong> {{ $reply->reply }}
+                </div>
+            @endforeach
+        @endif
+
+        {{-- Reply form --}}
+        {{-- <button onclick="document.getElementById('reply-form-{{ $review->id }}').classList.toggle('hidden')">Reply</button> --}}
+        <form id="reply-form-{{ $review->id }}" class="hidden" method="POST" action="{{ route('catalog.review-replies') }}">
+            @csrf
+            <input type="hidden" name="review_id" value="{{ $review->id }}">
+            <input type="text" name="name" required placeholder="Your Name"><br/>
+            <textarea name="reply" rows="4" class="form-control" required></textarea>
+            <button type="submit" class="btn btn-dark mt-2">Submit Reply</button>
+        </form>
+    </div>
+@endforeach
+
                 </div>
             </div>
         </div>

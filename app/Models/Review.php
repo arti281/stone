@@ -17,6 +17,11 @@ class Review extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function replies()
+    {
+        return $this->hasMany(ReviewReply::class);
+    }
   
 }
 

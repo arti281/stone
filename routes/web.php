@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\Setting\SiteController;
 use App\Http\Controllers\Admin\Design\BannerController;
 use App\Http\Controllers\Admin\Common\ProfileController;
 use App\Http\Controllers\Catalog\ReviewController;
+use App\Http\Controllers\Catalog\ReviewReplyController;
 
 //admin
 use App\Http\Controllers\Admin\Setting\GeneralController;
@@ -105,6 +106,7 @@ Route::name('catalog.')->group(function () {
     Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
     Route::post('/contactus', [ContactController::class, 'submit']);
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews');
+    Route::post('/review-replies', [ReviewReplyController::class, 'store'])->name('review-replies');
     
     
 
