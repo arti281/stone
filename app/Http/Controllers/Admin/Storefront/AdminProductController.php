@@ -25,6 +25,7 @@ use App\Models\Admin\Storefront\Product\ProductCategory;
 use App\Models\Admin\Storefront\Product\ProductDiscount;
 use App\Models\Admin\Storefront\Product\ProductDownload;
 use App\Models\Admin\Storefront\Product\ProductOtherLink;
+use App\Models\RelatedProduct;
 
 class AdminProductController extends Controller
 {
@@ -365,11 +366,9 @@ class AdminProductController extends Controller
         $data['stock_status'] = DB::table('stock_status')->get();
 
         $data['other_links'] = DB::table('product_other_links')->where('product_id', $product_id)->first();
-
-        return view('admin/storefront/product_form', $data);
-        //
-        $allProducts = Product::where('id', '!=', $product->id ?? 0)->get();
-        return view('admin.products.edit', compact('product', 'allProducts'));
+   
+        $data['allProducts'] = Product::where('id', '!=', $product->id ?? 0)->get();
+        return view('admin.storefront.product_form', $data);
 
     }
 
@@ -644,6 +643,30 @@ class AdminProductController extends Controller
                         $otherLink->save();
                     }
                 }
+
+                // add related product
+                $relatedProductIds = $request->related_products ?? [];
+                $existingRelatedIds = RelatedProduct::where('product_id', $product_id)
+                    ->pluck('related_product_id')
+                    ->toArray();
+
+                // 1. Delete removed relations
+                $toDelete = array_diff($existingRelatedIds, $relatedProductIds);
+                if (!empty($toDelete)) {
+                    RelatedProduct::where('product_id', $product_id)
+                        ->whereIn('related_product_id', $toDelete)
+                        ->delete();
+                }
+
+                // 2. Add new relations
+                $toAdd = array_diff($relatedProductIds, $existingRelatedIds);
+                foreach ($toAdd as $relatedId) {
+                    RelatedProduct::create([
+                        'product_id' => $product_id,
+                        'related_product_id' => $relatedId,
+                    ]);
+                }
+
                 return redirect('admin/storefront/product')->with('success', 'Product updated successfully.');
             }
         } catch (Exception $e) {

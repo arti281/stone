@@ -397,10 +397,15 @@
                                             <label for="related_product">Related Products</label>
                                         </div>
                                         <div class="col-10">
-                                            <input type="text" id="related_product" name="related_product" class="form-control p-2" value="{{ old('related_product') }}" placeholder="Related Products">
-                                            <div class="form-control mt-1" style="height: 150px; overflow: auto;">
-                                                
-                                            </div>
+                                            <select name="related_products[]" multiple class="form-control">
+                                                @if (!empty($allProducts))
+                                                    @foreach($allProducts as $prd)
+                                                        <option value="{{ $prd->id }}" @if($prd->id == $product['product']->product_id) selected @endif>
+                                                            {{ $prd->product_name }}
+                                                        </option>
+                                                    @endforeach
+                                                @endif
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -618,16 +623,6 @@
                                     </div>
                                 </div>
                             </div>
-<!--------- added related product--------->
-                            <label for="related_products">Related Products</label>
-                        <select name="related_products[]" multiple class="form-control">
-                            @foreach($allProducts as $p)
-                                <option value="{{ $p->id }}" {{ in_array($p->id, old('related_products', $product->relatedProducts->pluck('id')->toArray())) ? 'selected' : '' }}>
-                                    {{ $p->name }}
-                                </option>
-                            @endforeach
-                        </select>
-<!----------end add related product------------>
                         </form>
                     </div>
                 </div>
