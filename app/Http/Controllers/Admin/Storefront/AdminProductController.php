@@ -367,6 +367,10 @@ class AdminProductController extends Controller
         $data['other_links'] = DB::table('product_other_links')->where('product_id', $product_id)->first();
 
         return view('admin/storefront/product_form', $data);
+        //
+        $allProducts = Product::where('id', '!=', $product->id ?? 0)->get();
+        return view('admin.products.edit', compact('product', 'allProducts'));
+
     }
 
     public function updateProduct(Request $request, $product_id)

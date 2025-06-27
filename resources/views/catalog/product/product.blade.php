@@ -1,10 +1,10 @@
 @extends('catalog.common.base')
 
 <!-- meta tags -->
-@push('setTitle'){{ $product['product']->product_name }} @if (app('settings') && isset(app('settings')['site_title']))| {{ app('settings')['site_title'] }}@endif @endpush
-@push('setDescription'){{ $product['product']->meta_description }}@endpush
-@push('setKeyword'){{ $product['product']->tag }}@endpush
-@push('setCanonicalURL'){{ route('catalog.product-detail', ['product_id' => $product['product']->id, 'slug' => $product['product']->slug]) }}@endpush
+@push('setTitle'){{ $product['product']?->product_name }} @if (app('settings') && isset(app('settings')['site_title']))| {{ app('settings')['site_title'] }}@endif @endpush
+@push('setDescription'){{ $product['product']?->meta_description }}@endpush
+@push('setKeyword'){{ $product['product']?->tag }}@endpush
+@push('setCanonicalURL'){{ route('catalog.product-detail', ['product_id' => $product['product']?->id, 'slug' => $product['product']?->slug]) }}@endpush
 
 @push('addStyle')
     <style>
@@ -187,7 +187,22 @@
                         @endif
                     @endif
                 @endif
-
+<!-- related products----------->
+                @if($product = Product::find($id));
+                <h3>Related Products</h3>
+                <div class="grid grid-cols-4 gap-4">
+                    @foreach($product->relatedProducts as $related)
+                        <div class="border p-2">
+                            <a href="{{ route('product.detail', [$related->id, $related->slug]) }}">
+                                <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->name }}">
+                                <p>{{ $related->name }}</p>
+                                <p>₹{{ $related->price }}</p>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+<!---------end related products------------>
             </div>
         </div>
         <div class="card rounded-0 p-3 mb-3">

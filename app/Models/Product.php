@@ -86,4 +86,14 @@ class Product extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function relatedProducts()
+    {
+        return $this->belongsToMany(Product::class, 'product_related', 'product_id', 'related_product_id');
+    }
+
+    // public function relatedTo()
+    // {
+    //     return $this->belongsToMany(Product::class, 'product_related', 'related_product_id', 'product_id');
+    // }
+
 }

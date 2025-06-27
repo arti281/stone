@@ -27,7 +27,12 @@ class ProductController extends Controller
         $data['colors'] = Color::whereIn('id', $colorIds)->get();
         $data['sizes'] = Size::whereIn('id', $sizeIds)->get();
         $data['reviews'] = Review::with('replies')->where('product_id', $product_id)->paginate();
-        
+       $product = Product::findOrFail($product_id); // ✅ This will throw 404 if not found
+
+
+    return view('catalog.product.product', [
+        'product' => $product,
+    ]);
         return view('catalog.product.product', $data);
     }
 
@@ -87,4 +92,8 @@ class ProductController extends Controller
         
         return view('catalog.product.product_all', $data);
     }
+
+    // When saving (store or update)
+// $product->relatedProducts()->sync($request->input('related_products', []));
+
 }

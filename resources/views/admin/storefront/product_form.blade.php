@@ -618,6 +618,16 @@
                                     </div>
                                 </div>
                             </div>
+<!--------- added related product--------->
+                            <label for="related_products">Related Products</label>
+                        <select name="related_products[]" multiple class="form-control">
+                            @foreach($allProducts as $p)
+                                <option value="{{ $p->id }}" {{ in_array($p->id, old('related_products', $product->relatedProducts->pluck('id')->toArray())) ? 'selected' : '' }}>
+                                    {{ $p->name }}
+                                </option>
+                            @endforeach
+                        </select>
+<!----------end add related product------------>
                         </form>
                     </div>
                 </div>
