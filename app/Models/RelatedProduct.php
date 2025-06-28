@@ -8,9 +8,8 @@ class RelatedProduct extends Model
 {
     protected $guarded = [];
 
-    public function products()
-    {
-        return $this->hasMany(Product::class);
+    public function product(){
+        return $this->belongsTo(Product::class, 'related_product_id');
     }
 
 }

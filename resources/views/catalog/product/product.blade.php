@@ -187,22 +187,22 @@
                         @endif
                     @endif
                 @endif
-<!-- related products----------->
-                {{-- @if($relatedProducts->isNotEmpty());
+                <!-- related products----------->
+                @if($relatedProducts->isNotEmpty());
                     <h3>Related Products</h3>
                     <div class="grid grid-cols-4 gap-4">
                         @foreach($relatedProducts as $related)
                             <div class="border p-2">
-                                <a href="{{ route('product.detail', [$related->id, $related->slug]) }}">
-                                    <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->name }}">
-                                    <p>{{ $related->name }}</p>
-                                    <p>₹{{ $related->price }}</p>
+                                <a href="{{ route('catalog.product-detail', [$related->product->id, $related->product->slug]) }}">
+                                    <img src="{{ asset('storage/' . $related->product->image) }}" alt="{{ $related->product->product_name }}">
+                                    <p>{{ $related->product->product_name }}</p>
+                                    <p>₹{{ $related->product->price }}</p>
                                 </a>
                             </div>
                         @endforeach
                     </div>
-                @endif --}}
-<!---------end related products------------>
+                @endif
+                <!---------end related products------------>
             </div>
         </div>
         <div class="card rounded-0 p-3 mb-3">
