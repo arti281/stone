@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Color;
 use App\Models\Product;
 use App\Models\ProductVariation;
+use App\Models\RelatedProduct;
 use App\Models\Review;
 use App\Models\Size;
 use Illuminate\Http\Request;
@@ -27,12 +28,8 @@ class ProductController extends Controller
         $data['colors'] = Color::whereIn('id', $colorIds)->get();
         $data['sizes'] = Size::whereIn('id', $sizeIds)->get();
         $data['reviews'] = Review::with('replies')->where('product_id', $product_id)->latest('created_at')->paginate();
-       $product = Product::findOrFail($product_id); // ✅ This will throw 404 if not found
+        $data['relatedProducts'] = RelatedProduct::with('products')->where('product_id', $product_id)->get();
 
-
-    return view('catalog.product.product', [
-        'product' => $product,
-    ]);
         return view('catalog.product.product', $data);
     }
 
@@ -94,6 +91,5 @@ class ProductController extends Controller
     }
 
     // When saving (store or update)
-// $product->relatedProducts()->sync($request->input('related_products', []));
 
 }

@@ -4,7 +4,7 @@
 @push('setTitle'){{ $product['product']?->product_name }} @if (app('settings') && isset(app('settings')['site_title']))| {{ app('settings')['site_title'] }}@endif @endpush
 @push('setDescription'){{ $product['product']?->meta_description }}@endpush
 @push('setKeyword'){{ $product['product']?->tag }}@endpush
-@push('setCanonicalURL'){{ route('catalog.product-detail', ['product_id' => $product['product']?->id, 'slug' => $product['product']?->slug]) }}@endpush
+@push('setCanonicalURL'){{ route('catalog.product-detail', ['product_id' => $product['product']->id, 'slug' => $product['product']?->slug]) }}@endpush
 
 @push('addStyle')
     <style>
@@ -51,7 +51,7 @@
                 @include('catalog.common.ajax_alert')
 
                 <div class="header">
-                    <h2 style="font-family: 'Arial', sans-serif;">{{ $product['product']->product_name }}</h2>
+                    <h2 style="font-family: 'Arial', sans-serif;">{{ $product['product']?->product_name }}</h2>
                     <div class="d-flex mt-4">
                         @if ($product['product']->stock_status == 'In Stock')
                             <h5 class="me-3"><strong>Rs. </strong>{{ number_format($product['product']->price,0) }}</h5>
@@ -188,20 +188,20 @@
                     @endif
                 @endif
 <!-- related products----------->
-                @if($product = Product::find($id));
-                <h3>Related Products</h3>
-                <div class="grid grid-cols-4 gap-4">
-                    @foreach($product->relatedProducts as $related)
-                        <div class="border p-2">
-                            <a href="{{ route('product.detail', [$related->id, $related->slug]) }}">
-                                <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->name }}">
-                                <p>{{ $related->name }}</p>
-                                <p>₹{{ $related->price }}</p>
-                            </a>
-                        </div>
-                    @endforeach
-                </div>
-            @endif
+                {{-- @if($relatedProducts->isNotEmpty());
+                    <h3>Related Products</h3>
+                    <div class="grid grid-cols-4 gap-4">
+                        @foreach($relatedProducts as $related)
+                            <div class="border p-2">
+                                <a href="{{ route('product.detail', [$related->id, $related->slug]) }}">
+                                    <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->name }}">
+                                    <p>{{ $related->name }}</p>
+                                    <p>₹{{ $related->price }}</p>
+                                </a>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif --}}
 <!---------end related products------------>
             </div>
         </div>
