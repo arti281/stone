@@ -12,6 +12,13 @@
                     <a class="text-decoration-none text-white d-block" style="padding-left:3rem !important" href="{{ route('size') }}"><i class="fa-solid fa-angles-right"></i> Size</a>
                 </div>
             </li>
+            
+            <li>
+                <button class="dropdown-btn left-side-btn" data-dropdown="column_left-2"><span><i class="fa-solid fa-ticket"></i> Coupons</span> <i class="fa fa-caret-down"></i></button>
+                <div class="dropdown-container" id="dropdown-column_left-2">
+                    <a class="text-decoration-none text-white d-block" style="padding-left:3rem !important" href="{{ route('admin.coupon.index') }}"><i class="fa-solid fa-angles-right"></i> Coupon</a>
+                </div>
+            </li>
             <li>
                 <button class="dropdown-btn left-side-btn" data-dropdown="column_left-2"><span><i class="fas fa-user"></i> Users</span> <i class="fa fa-caret-down"></i></button>
                 <div class="dropdown-container" id="dropdown-column_left-2">

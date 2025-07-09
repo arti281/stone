@@ -37,6 +37,7 @@ use App\Http\Controllers\Catalog\Information\InformationController;
 use App\Http\Controllers\Catalog\Information\ContactController;
 use App\Http\Controllers\Admin\Storefront\ProductVariationController;
 use App\Http\Controllers\Admin\Sales\OrderController as SalesOrderController;
+use App\Http\Controllers\Admin\Coupon\CouponController;
 use App\Http\Controllers\Catalog\Search\SearchController;
 
 // Catalog
@@ -98,11 +99,15 @@ Route::name('catalog.')->group(function () {
             Route::post('/decrease-quantity', [CartController::class, 'decreaseQunatity'])->name('decreaseQunatity');
             Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkoutIndex');
             Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+
         });
     });
 
-    Route::get('return-replacement-policy', [InformationController::class, 'privacyPolicy'])->name('privacyPolicy');
+    Route::get('/refund-return-policy', [InformationController::class, 'refund'])->name('refund-return-policy');
     Route::get('/aboutus', [InformationController::class, 'about'])->name('aboutus');
+    Route::get('/terms-condition', [InformationController::class, 'term'])->name('terms-condition');
+    Route::get('/shipping-policy', [InformationController::class, 'policy'])->name('shipping-policy');
+    Route::get('/privacy-policy', [InformationController::class, 'privacy'])->name('privacy-policy');
     Route::get('/contactus', [ContactController::class, 'show'])->name('contactus');
     Route::post('/contactus', [ContactController::class, 'submit']);
     Route::post('/reviews', [ReviewController::class, 'store'])->name('reviews');
@@ -117,6 +122,9 @@ Route::name('catalog.')->group(function () {
 Route::get('/admin', function () {
     return redirect()->route('admin-login');
 });
+Route::get('admin/coupon', CouponController::class, 'index')->name('coupon.index')->middleware('AdminMiddlewareLogin');;
+Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
+
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin-login')->middleware('AdminMiddlewareLogout');
 Route::post('/admin/login', [AdminLoginController::class, 'AdminLogin'])->name('admin-login')->middleware('AdminMiddlewareLogout');
 Route::post('/admin/logout', [AdminLoginController::class, 'adminLogout'])->name('admin-logout');
@@ -200,3 +208,4 @@ Route::middleware(['AdminMiddlewareLogin'])->prefix('admin/sales')->group(functi
     Route::post('generate-invoice', [SalesOrderController::class, 'generateIncoice'])->name('admin.generateIncoice');
     Route::get('get-order-history/{order_master_id}', [SalesOrderController::class, 'getOrderHistory'])->name('admin.getOrderHistory');
 });
+

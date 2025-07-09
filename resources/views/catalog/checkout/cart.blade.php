@@ -133,8 +133,23 @@
                                 </table>
             
                                 <div class="d-flex mb-3 gap-2">
-                                    <input type="text" class="form-control rounded-0" placeholder="Enter Coupon Code">
-                                    <button class="btn btn-dark rounded-0">Apply</button>
+                                    <form action="{{ route('apply-coupon') }}" method="POST">
+                                                @csrf
+                                                <input type="text" name="coupon_code" class="form-control rounded-0" placeholder="Enter Coupon Code">
+                                                <button type="submit"class="btn btn-dark rounded-0">Apply</button>
+                                            </form>
+                                    
+                                            @if(session('success'))
+                                    <p style="color:green;">{{ session('success') }}</p>
+                                @endif
+
+                                @if(session('error'))
+                                    <p style="color:red;">{{ session('error') }}</p>
+                                @endif
+
+                                @if(session('discount'))
+                                    <p>Coupon "{{ session('coupon_code') }}" applied. Discount: ₹{{ session('discount') }}</p>
+                                @endif
                                 </div>
                             
                                 <div class="">

@@ -8,6 +8,7 @@ use App\Models\Cart;
 use App\Models\Size;
 use App\Models\Product;
 use App\Models\StockStatus;
+use App\Models\Coupon;
 use App\Models\ProductPrice;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -140,4 +141,39 @@ class CartController extends Controller
             dd($e->getMessage());
         }
     }
+
+   public function applyCoupon(Request $request)
+    {
+    $request->validate([
+        'coupon_code' => 'required',
+    ]);
+
+    $coupon = Coupon::where('code', $request->coupon_code)
+        ->where('status', 1)
+        ->whereDate('valid_from', '<=', now())
+        ->whereDate('valid_to', '>=', now())
+        ->first();
+
+    if (!$coupon) {
+        return back()->with('error', 'Invalid or expired coupon code.');
+    }
+
+    // Example cart subtotal
+    $subtotal = session('cart_subtotal', 0);
+
+    if ($coupon->discount_type == 'fixed') {
+        $discount = $coupon->discount;
+    } else {
+        $discount = ($subtotal * $coupon->discount) / 100;
+    }
+
+    session([
+        'coupon_code' => $coupon->code,
+        'discount' => $discount,
+    ]);
+
+    return back()->with('success', 'Coupon applied successfully!');
 }
+
+}
+
