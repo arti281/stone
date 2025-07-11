@@ -99,6 +99,7 @@ Route::name('catalog.')->group(function () {
             Route::post('/decrease-quantity', [CartController::class, 'decreaseQunatity'])->name('decreaseQunatity');
             Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkoutIndex');
             Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
+            Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
 
         });
     });
@@ -122,14 +123,17 @@ Route::name('catalog.')->group(function () {
 Route::get('/admin', function () {
     return redirect()->route('admin-login');
 });
-Route::get('admin/coupon', CouponController::class, 'index')->name('coupon.index')->middleware('AdminMiddlewareLogin');;
-Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
-
 Route::get('/admin/login', [AdminLoginController::class, 'index'])->name('admin-login')->middleware('AdminMiddlewareLogout');
 Route::post('/admin/login', [AdminLoginController::class, 'AdminLogin'])->name('admin-login')->middleware('AdminMiddlewareLogout');
 Route::post('/admin/logout', [AdminLoginController::class, 'adminLogout'])->name('admin-logout');
 
 Route::get('/admin/dashboard', [AdminDashboardController::class, 'index'])->name('admin-dashboard')->middleware('AdminMiddlewareLogin');
+Route::get('admin/coupon', [CouponController::class, 'index'])->name('admin.coupon.index')->middleware('AdminMiddlewareLogin');
+Route::get('admin/coupons/create', [CouponController::class, 'create'])->name('admin.coupon.create')->middleware('AdminMiddlewareLogin');
+Route::post('admin/coupon', [CouponController::class, 'store'])->name('admin.coupon.store')->middleware('AdminMiddlewareLogin');
+Route::get('admin/coupon/{id}/edit', [CouponController::class, 'edit'])->name('admin.coupon.edit')->middleware('AdminMiddlewareLogin');
+Route::delete('admin/coupon/{id}', [CouponController::class, 'destroy'])->name('admin.coupon.destroy')->middleware('AdminMiddlewareLogin');
+Route::put('/admin/coupons/{id}', [CouponController::class, 'update'])->name('admin.coupon.update')->middleware('AdminMiddlewareLogin');
 
 Route::middleware(['AdminMiddlewareLogin'])->prefix('admin/setting')->group(function () {
     Route::get('/', [SettingController::class, 'index'])->name('admin-setting');

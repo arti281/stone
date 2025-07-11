@@ -1,12 +1,9 @@
 @extends('admin.common.base')
 
-@push('setTitle')
-{{$heading_title}}
-@endpush
 
 @section('content')
 <h2>Coupons</h2>
-<a href="{{ route('coupons.create') }}">Create New Coupon</a>
+<a href="{{ route('admin.coupon.create') }}">Create New Coupon</a>
 
 <table>
     <thead>
@@ -30,8 +27,8 @@
             <td>{{ $coupon->valid_to }}</td>
             <td>{{ $coupon->status ? 'Active' : 'Inactive' }}</td>
             <td>
-                <a href="{{ route('coupons.edit', $coupon->id) }}">Edit</a>
-                <form method="POST" action="{{ route('coupons.destroy', $coupon->id) }}" style="display:inline;">
+                <a href="{{ route('admin.coupon.edit', $coupon->id) }}">Edit</a>
+                <form method="POST" action="{{ route('admin.coupon.destroy', $coupon->id) }}" style="display:inline;">
                     @csrf
                     @method('DELETE')
                     <button type="submit" onclick="return confirm('Delete this coupon?')">Delete</button>

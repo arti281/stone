@@ -13,35 +13,56 @@ class CouponController extends Controller
      */
 
      public function index(){
-        return view('admin.coupon.index');
+        
+   $coupons = Coupon::all();
+    return view('admin.coupon.index', compact('coupons'));
      }
-   public function store(Request $request)
-   {
 
-    $request->validate([
-    'code' => 'required|unique:coupons',
-    'discount' => 'required|numeric|min:1',
-    'discount_type' => 'required|in:fixed,percent',
+      public function create(){
+        return view('admin.coupon.create');
+     }
+
+      public function edit($id){
+        $coupon = Coupon::findOrFail($id);
+    return view('admin.coupon.edit', compact('coupon'));
+     }
+
+     public function update(Request $request, $id)
+{
+    $coupon = Coupon::findOrFail($id);
+
+    $coupon->update([
+        'code' => $request->input('code'),
+        'discount' => $request->input('discount'),
+        'status' => $request->input('status', 1),
+    ]);
+
+    return redirect()->route('coupon.index')->with('success', 'Coupon updated successfully!');
+}
+
+
+     public function destroy(){
+        return view('admin.coupon.destroy');
+     }
+
+   public function store(Request $request)
+        {
+           $request->validate([
+    'code' => 'required|string|unique:coupons',
+    'discount' => 'required|numeric',
+    'status' => 'required|in:active,inactive,1,0',
     'valid_from' => 'required|date',
-    'valid_to' => 'required|date|after_or_equal:valid_from',
-], [
-    'code.required' => 'The coupon code is required.',
-    'code.unique' => 'This coupon code already exists.',
-    'discount.required' => 'Please enter a discount value.',
-    'valid_to.after_or_equal' => 'The valid to date must be after the valid from date.',
 ]);
 
-    // $request->validate([
-    //     'code' => 'required|unique:coupons',
-    //     'discount' => 'required|numeric',
-    //     'discount_type' => 'required|in:fixed,percent',
-    //     'valid_from' => 'required|date',
-    //     'valid_to' => 'required|date|after_or_equal:valid_from',
-    // ]);
+Coupon::create([
+    'code' => $request->code,
+    'discount' => $request->discount,
+    'status' => $request->status,
+    'valid_from' => now()->toDateString(),  // Set current date
+]);
 
-    Coupon::create($request->all());
+    return redirect()->route('admin.coupon.index')->with('success', 'Coupon created successfully.');
+        }
 
-    return redirect()->route('admin.coupons.index')->with('success', 'Coupon created successfully!');
-}
 
 }

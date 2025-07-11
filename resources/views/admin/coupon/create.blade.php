@@ -1,9 +1,5 @@
 @extends('admin.common.base')
 
-@push('setTitle')
-{{$heading_title}}
-@endpush
-
 @section('content')
 <h2>Create Coupon</h2>
 
@@ -15,7 +11,7 @@
     </div>
 @endif
 
-<form action="{{ route('coupons.store') }}" method="POST">
+<form action="{{ route('admin.coupon.store') }}" method="POST">
     @csrf
     <label>Coupon Code</label>
     <input type="text" name="code" required>
