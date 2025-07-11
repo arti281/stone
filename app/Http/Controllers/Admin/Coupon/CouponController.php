@@ -28,41 +28,43 @@ class CouponController extends Controller
      }
 
      public function update(Request $request, $id)
-{
-    $coupon = Coupon::findOrFail($id);
+    {
+        $coupon = Coupon::findOrFail($id);
 
-    $coupon->update([
-        'code' => $request->input('code'),
-        'discount' => $request->input('discount'),
-        'status' => $request->input('status', 1),
-    ]);
+        $coupon->update([
+            'code' => $request->input('code'),
+            'discount' => $request->input('discount'),
+            'status' => $request->input('status', 1),
+        ]);
 
-    return redirect()->route('coupon.index')->with('success', 'Coupon updated successfully!');
-}
+        return redirect()->route('admin.coupon.index')->with('success', 'Coupon updated successfully!');
+    }
 
 
      public function destroy(){
-        return view('admin.coupon.destroy');
+        return redirect()->route('admin.coupon.index')->with('success', 'Coupon deleted successfully!');
      }
 
    public function store(Request $request)
-        {
-           $request->validate([
-    'code' => 'required|string|unique:coupons',
-    'discount' => 'required|numeric',
-    'status' => 'required|in:active,inactive,1,0',
-    'valid_from' => 'required|date',
-]);
+    {
+        $request->validate([
+            'code' => 'required|string|unique:coupons',
+            'discount' => 'required|numeric',
+            'status' => 'required|in:active,inactive,1,0',
+            'valid_from' => 'required|date',
+            'valid_to' => 'required|date',
+        ]);
 
-Coupon::create([
-    'code' => $request->code,
-    'discount' => $request->discount,
-    'status' => $request->status,
-    'valid_from' => now()->toDateString(),  // Set current date
-]);
+        Coupon::create([
+            'code' => $request->code,
+            'discount' => $request->discount,
+            'status' => $request->status,
+            'valid_from' => $request->valid_from,
+            'valid_to' => $request->valid_to
+        ]);
 
-    return redirect()->route('admin.coupon.index')->with('success', 'Coupon created successfully.');
-        }
+        return redirect()->route('admin.coupon.index')->with('success', 'Coupon created successfully.');
+    }
 
 
 }

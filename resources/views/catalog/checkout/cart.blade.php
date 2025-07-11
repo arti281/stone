@@ -133,7 +133,7 @@
                                 </table>
             
                                 <div class="d-flex mb-3 gap-2">
-                                    <form action="{{ route('apply-coupon') }}" method="POST">
+                                    <form action="{{ route('catalog.apply-coupon') }}" method="POST">
                                                 @csrf
                                                 <input type="text" name="coupon_code" class="form-control rounded-0" placeholder="Enter Coupon Code">
                                                 <button type="submit"class="btn btn-dark rounded-0">Apply</button>
