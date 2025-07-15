@@ -33,6 +33,22 @@
     // Populate fields on page load
     window.addEventListener('DOMContentLoaded', populateFieldsFromSelected);
 
+    window.addEventListener('DOMContentLoaded', function () {
+    const coupon = {!! json_encode(session('coupon')) !!};
+
+    if (coupon && coupon.discount) {
+        const totalElem = document.getElementById('total_amount');
+        const couponElem = document.getElementById('coupon_discount');
+
+        let total = parseFloat(totalElem.textContent);
+        let discount = parseFloat(coupon.discount);
+
+        totalElem.textContent = Math.max(0, total - discount);
+        couponElem.textContent = discount;
+    }
+});
+
+
     // Update fields when the selection changes
     document.getElementById('address').addEventListener('change', populateFieldsFromSelected);
 
@@ -70,6 +86,9 @@
 @endpush
 
 @section('content')
+{{-- <pre>
+    {{ print_r(session()->all(), true) }}
+</pre> --}}
     <section class="container-fluid py-4">
         <h2 class="text-center mb-4"><i class="fa-solid fa-bag-shopping"></i> Checkout</h2>
 
@@ -197,13 +216,14 @@
                                             <span id="discount_on_mrp">{{ $discount_on_mrp }}</span>
                                         </td>
                                     </tr>
+                                    @isset($coupon_discount)
                                     <tr>
                                         <td class="text-muted">Coupon Discount</td>
                                         <td class="text-end text-success">
-                                            <span class="fw-bold"><i class="fa-solid fa-indian-rupee-sign"></i></span>
-                                            <span id="coupon_discount">0</span>
+                                            - <i class="fa-solid fa-indian-rupee-sign"></i> {{ $coupon_discount ?? 0 }}
                                         </td>
                                     </tr>
+                                    @endisset
                                     <tr>
                                         <td class="text-muted">Platform Fee</td>
                                         <td class="text-end text-success">
