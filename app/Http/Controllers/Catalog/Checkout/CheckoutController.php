@@ -51,12 +51,8 @@ class CheckoutController extends Controller
 
         $data['addresses'] = Address::where('user_id', session('isUser'))->get();
     
-       $coupon = session('coupon', []); // safely handle null
-        $data['coupon_discount'] = isset($coupon['discount']) ? $coupon['discount'] : 1000;
-        // Deduct coupon from total
-        $data['total_amount'] = max(0, $data['total_amount'] - $data['coupon_discount']);   
-
-        // dd($data['coupon_discount']);
+        $coupon_discount = session('discount') ?? 0;
+        $data['total_amount'] = max(0, $data['total_amount']) - $coupon_discount;   
 
         if($data['cart_total'] > 0){
             return view('catalog.checkout.checkout', $data);

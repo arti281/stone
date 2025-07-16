@@ -171,7 +171,7 @@
         let current_quantity = parseInt(document.getElementById('quantity_' + product_id + '_' + color_id + '_' + size_id).value);
         let total_quantity = document.getElementById('quantity_' + product_id + '_' + color_id + '_' + size_id).value = current_quantity +  1;
         let user_id = {!! json_encode(session('isUser')) !!}
-        let action = {!! json_encode(route('catalog.addCart')) !!}
+        let action = {!! json_encode(route('catalog.addCart')) !!}        
         
         if(user_id){
             $.ajax({

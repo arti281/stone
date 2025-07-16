@@ -51,6 +51,10 @@ class CartController extends Controller
             }
         }
         $data['cart_total'] = $cart_product->count();
+
+        // apply coupon discount
+        $coupon_discount = session('discount') ?? 0;
+        $data['total_amount'] = $data['total_amount'] - $coupon_discount;
         return view('catalog.checkout.cart', $data);
     }
 
@@ -168,7 +172,7 @@ class CartController extends Controller
     }
 
     session([
-        'coupon_code' => $coupon->code,
+        'coupon' => $coupon->code,
         'discount' => $discount,
     ]);
 
