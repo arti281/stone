@@ -63,7 +63,7 @@ class CheckoutController extends Controller
                 $orderMaster->coupon_id = session('coupon.id');
                 $orderMaster->discount = session('coupon.discount');
             }
-// dd(session('coupon'));
+
             $orderMaster->save();
             
     }
@@ -86,7 +86,7 @@ class CheckoutController extends Controller
         $data['total_amount'] = 0;
         $data['total_mrp'] = 0;
         $data['discount_on_mrp'] = 0;
-        $data['coupon_discount'] = 0;
+        $data['coupon_discount'] = session('discount') ?? 0;;
         $data['platform_fee'] = 0;
         $data['shipping_fee'] = 0;
 
@@ -117,7 +117,7 @@ class CheckoutController extends Controller
             'city' => $validated['city'],
             'pincode' => $validated['pincode'],
             'total_mrp' => $data['total_mrp'],
-            'total_amount' => $data['total_amount'],
+            'total_amount' => $data['total_amount'] - $data['coupon_discount'],
             'discount_on_mrp' => $data['discount_on_mrp'],
             'coupon_discount' => $data['coupon_discount'],
             'platform_fee' => $data['platform_fee'],
@@ -169,7 +169,7 @@ class CheckoutController extends Controller
                 "order_master_id" => $order_master->id,
                 "payment_method" => $validated['payment_method'],
                 "status" => 'pending',
-                "amount" => $data['total_amount'],
+                "amount" => $data['total_amount'] - $data['coupon_discount'],
             ]);
 
         }
