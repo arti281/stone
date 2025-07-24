@@ -59,6 +59,13 @@ class CheckoutController extends Controller
         }else{
             return redirect()->route('catalog.cart');
         }
+            if (session()->has('coupon')) {
+                $orderMaster->coupon_id = session('coupon.id');
+                $orderMaster->discount = session('coupon.discount');
+            }
+// dd(session('coupon'));
+            $orderMaster->save();
+            
     }
 
     public function checkout(Request $request){

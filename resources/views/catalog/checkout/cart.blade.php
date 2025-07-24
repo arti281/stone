@@ -104,10 +104,12 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <input type="text" id="coupon_code" placeholder="Enter Coupon Code">
-                                            <button type="button" onclick="applyCoupon()">Apply</button>
-                                            <p id="coupon-message" style="color:red;"></p>
-                                        </tr>
+                                        <td class="text-muted">Coupon Discount</td>
+                                        <td class="text-end text-success">
+                                            <span class="fw-bold"> - <i class="fa-solid fa-indian-rupee-sign"></i></span>
+                                            <span id="discount">{{ session('discount') }}</span>
+                                        </td>
+                                    </tr>
                                         <tr>
                                             <td class="text-muted">Platform Fee</td>
                                             <td class="text-end text-success">

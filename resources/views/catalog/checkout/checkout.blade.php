@@ -216,14 +216,13 @@
                                             <span id="discount_on_mrp">{{ $discount_on_mrp }}</span>
                                         </td>
                                     </tr>
-                                    @isset($coupon_discount)
                                     <tr>
                                         <td class="text-muted">Coupon Discount</td>
                                         <td class="text-end text-success">
-                                            - <i class="fa-solid fa-indian-rupee-sign"></i> {{ $coupon_discount ?? 0 }}
+                                            <span class="fw-bold"> - <i class="fa-solid fa-indian-rupee-sign"></i></span>
+                                            <span id="discount">{{ session('discount') }}</span>
                                         </td>
                                     </tr>
-                                    @endisset
                                     <tr>
                                         <td class="text-muted">Platform Fee</td>
                                         <td class="text-end text-success">
