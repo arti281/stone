@@ -132,24 +132,29 @@
                                     </tbody>
                                 </table>
             
-                                <div class="d-flex mb-3 gap-2">
-                                    <form action="{{ route('catalog.apply-coupon') }}" method="POST">
+                                <div class="mb-3 gap-2">
+                                    @if(session('discount'))
+                                        <div class="d-flex justify-content-between" style="font-size: 14px">
+                                            <p class="ms-2 text-muted" style="font-size: 15px">Applied Coupon ({{ session('coupon') }})</p>
+                                            <form action="{{ route('catalog.removeCoupon') }}" method="POST" class="d-inline ms-2">
                                                 @csrf
-                                                <input type="text" name="coupon_code" class="form-control rounded-0" placeholder="Enter Coupon Code">
-                                                <button type="submit"class="btn btn-dark rounded-0">Apply</button>
+                                                <button type="submit" class="btn btn-danger btn-sm">X</button>
                                             </form>
+                                        </div>
+                                    @endif
+                                    <form action="{{ route('catalog.apply-coupon') }}" class="d-flex" method="POST">
+                                        @csrf
+                                        <input type="text" name="coupon_code" class="form-control rounded-0" placeholder="Enter Coupon Code">
+                                        <button type="submit"class="btn btn-dark rounded-0">Apply</button>
+                                    </form>
                                     
-                                            @if(session('success'))
-                                    <p style="color:green;">{{ session('success') }}</p>
-                                @endif
+                                    @if(session('success'))
+                                        <p style="color:green;font-size: 13px">{{ session('success') }}</p>
+                                    @endif
 
-                                @if(session('error'))
-                                    <p style="color:red;">{{ session('error') }}</p>
-                                @endif
-
-                                @if(session('discount'))
-                                    <p>Coupon "{{ session('coupon_code') }}" applied. Discount: ₹{{ session('discount') }}</p>
-                                @endif
+                                    @if(session('error'))
+                                        <p style="color:red;font-size: 13px">{{ session('error') }}</p>
+                                    @endif
                                 </div>
                             
                                 <div class="">

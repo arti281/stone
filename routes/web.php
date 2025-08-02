@@ -100,6 +100,7 @@ Route::name('catalog.')->group(function () {
             Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkoutIndex');
             Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
             Route::post('/apply-coupon', [CartController::class, 'applyCoupon'])->name('apply-coupon');
+            Route::post('/coupon/remove', [CartController::class, 'removeCoupon'])->name('removeCoupon');
 
         });
     });

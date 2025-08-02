@@ -146,38 +146,44 @@ class CartController extends Controller
         }
     }
 
-   public function applyCoupon(Request $request)
+    public function applyCoupon(Request $request)
     {
-    $request->validate([
-        'coupon_code' => 'required',
-    ]);
+        $request->validate([
+            'coupon_code' => 'required',
+        ]);
 
-    $coupon = Coupon::where('code', $request->coupon_code)
-        ->where('status', 1)
-        ->whereDate('valid_from', '<=', now())
-        ->whereDate('valid_to', '>=', now())
-        ->first();
+        $coupon = Coupon::where('code', $request->coupon_code)
+            ->where('status', 1)
+            ->whereDate('valid_from', '<=', now())
+            ->whereDate('valid_to', '>=', now())
+            ->first();
 
-    if (!$coupon) {
-        return back()->with('error', 'Invalid or expired coupon code.');
+        if (!$coupon) {
+            return back()->with('error', 'Invalid or expired coupon code.');
+        }
+
+        // Example cart subtotal
+        $subtotal = session('cart_subtotal', 0);
+
+        if ($coupon->discount_type == 'fixed') {
+            $discount = $coupon->discount;
+        } else {
+            $discount = ($subtotal * $coupon->discount) / 100;
+        }
+
+        session([
+            'coupon' => $coupon->code,
+            'discount' => $discount,
+        ]);
+
+        return back()->with('success', 'Coupon applied successfully!');
     }
 
-    // Example cart subtotal
-    $subtotal = session('cart_subtotal', 0);
-
-    if ($coupon->discount_type == 'fixed') {
-        $discount = $coupon->discount;
-    } else {
-        $discount = ($subtotal * $coupon->discount) / 100;
+    public function removeCoupon()
+    {
+        session()->forget(['discount', 'coupon']);
+        return back()->with('success', 'Coupon removed successfully.');
     }
-
-    session([
-        'coupon' => $coupon->code,
-        'discount' => $discount,
-    ]);
-
-    return back()->with('success', 'Coupon applied successfully!');
-}
 
 }
 

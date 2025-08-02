@@ -221,6 +221,8 @@ class CheckoutController extends Controller
             return redirect()->route('catalog.checkout')->with('error', 'Please select correct payment method');
         }
 
+        session()->forget(['discount', 'coupon']);
+
         return redirect()->route('catalog.order')->with('success', 'Product ordered successfully!');
     }
 }
