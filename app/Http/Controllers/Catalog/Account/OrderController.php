@@ -83,7 +83,7 @@ class OrderController extends Controller
             ->where('id', $order_master_id)
             ->select('id','name', 'total_amount', 'coupon_discount', 'payment_method', 'invoice_no','invoice_prefix','created_at')
             ->first();
-// dd($order_master_id);
+// dd($data['orderMaster']);
         return view('catalog.account.invoice', $data);
     }
 

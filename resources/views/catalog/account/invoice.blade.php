@@ -189,9 +189,9 @@
         return $order->price * $order->quantity;
     });
 
-    $discount = $orderMaster->coupon_discount ?? 0;
+    $coupon_discount = $orderMaster->coupon_discount ?? 0;
     $couponCode = $orderMaster->coupon_code ?? null;
-    $grandTotal = $subtotal - $discount;
+    $grandTotal = $subtotal - $coupon_discount;
 @endphp
 
 <div class="summary">
@@ -200,11 +200,11 @@
             <th>Subtotal:</th>
             <td><span style="font-size: 16px">₹</span>{{ number_format($subtotal, 2) }}</td>
         </tr>
-        @if($couponCode)
-        <tr>
-            <th>Coupon ({{ $couponCode }}):</th>
-            <td>-<span style="font-size: 16px">₹</span>{{ number_format($coupon_discount, 2) }}</td>
-        </tr>
+        @if(isset($coupon_discount))
+            <tr>
+                <th>Coupon discount:</th>
+                <td>-<span style="font-size: 16px">₹</span>{{ number_format($coupon_discount, 2) }}</td>
+            </tr>
         @endif
         <tr>
             <th>Tax:</th>
