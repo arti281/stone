@@ -247,7 +247,7 @@
                                         <td class="text-muted">Coupon Discount</td>
                                         <td class="text-end text-success">
                                             <span class="fw-bold"> - <i class="fa-solid fa-indian-rupee-sign"></i></span>
-                                            <span id="discount">{{ number_format($orderMaster->coupon_discount ?? 0, 2) }}</span>
+                                            <span id="coupon_discount">{{ number_format($orderMaster->coupon_discount, 0) }}</span>
                                         </td>
                                     </tr>
                                     <tr>

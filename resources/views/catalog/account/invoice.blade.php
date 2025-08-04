@@ -158,6 +158,7 @@
                 <p><strong>Order ID:</strong> <span>{{ $orderMaster->id }}</span></p>
                 <p><strong>Order Date:</strong> <span>{{ $orderMaster->created_at->format('d M Y') }}</span></p>
                 <p><strong>Invoice No:</strong> <span>{{ $orderMaster->invoice_prefix }}{{ $orderMaster->invoice_no }}</span></p>
+            
             </div>
             <div class="details">
                 <table>
@@ -183,27 +184,39 @@
                     </tbody>
                 </table>
             </div>
-            <div class="summary">
-                <table>
-                    <tr>
-                        <th>Subtotal:</th>
-                        <td>{{ $item->price }}</td>
-                    </tr>
-                    <tr>
-                        <th>Discount:</th>
-                        <td>$0.00</td>
-                    </tr>
-                    <tr>
-                        <th>Tax:</th>
-                        <td>$0.00</td>
-                    </tr>
-                    <tr>
-                        <th>Paid:</th>
-                        <td>{{ $item->price }}</td>
-                    </tr>
-                </table>
-                <div class="total">Total: {{ $item->price }}</div>
-            </div>
+            @php
+    $subtotal = $orderMaster->orders->sum(function($order) {
+        return $order->price * $order->quantity;
+    });
+
+    $discount = $orderMaster->coupon_discount ?? 0;
+    $couponCode = $orderMaster->coupon_code ?? null;
+    $grandTotal = $subtotal - $discount;
+@endphp
+
+<div class="summary">
+    <table>
+        <tr>
+            <th>Subtotal:</th>
+            <td><span style="font-size: 16px">₹</span>{{ number_format($subtotal, 2) }}</td>
+        </tr>
+        @if($couponCode)
+        <tr>
+            <th>Coupon ({{ $couponCode }}):</th>
+            <td>-<span style="font-size: 16px">₹</span>{{ number_format($coupon_discount, 2) }}</td>
+        </tr>
+        @endif
+        <tr>
+            <th>Tax:</th>
+            <td><span style="font-size: 16px">₹</span>0.00</td>
+        </tr>
+        <tr>
+            <th>Paid:</th>
+            <td><span style="font-size: 16px">₹</span>{{ number_format($grandTotal, 2) }}</td>
+        </tr>
+    </table>
+    <div class="total">Total: ₹{{ number_format($grandTotal, 2) }}</div>
+</div>
         </div>
     </div>
 

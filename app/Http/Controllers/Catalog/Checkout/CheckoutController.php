@@ -132,10 +132,10 @@ class CheckoutController extends Controller
         // COD payment method
         if($validated['payment_method'] == 'cod'){
 
-            if(app('settings') && (int)app('settings')['general_cod_fee_status']){
+            if(app('settings') && (int)app('settings')['general_cod_fee_status']){         
                 $orderArr['cod_fee'] = (int)app('settings')['general_cod_fee'];
-                $orderArr['total_amount'] = ceil($data['total_amount']  + (int)app('settings')['general_cod_fee']); // added code fee
-            }            
+                $orderArr['total_amount'] = $orderArr['total_amount']  + (int)app('settings')['general_cod_fee']; // added code fee
+            }   
 
             // create order master
             $order_master = OrderMaster::create($orderArr);

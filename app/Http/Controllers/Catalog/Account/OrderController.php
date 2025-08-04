@@ -42,7 +42,9 @@ class OrderController extends Controller
     }
 
     public function orderInfo($order_master_id){
-        $data['orderMaster'] = OrderMaster::where('user_id', session('isUser'))->where('id', $order_master_id)->first();
+        $data['orderMaster'] = OrderMaster::where('user_id', session('isUser'))
+        ->where('id', $order_master_id)
+        ->first();
 
         $data['orders'] = Order::leftJoin('products', 'orders.product_id', '=', 'products.id')
             ->where('order_master_id', $order_master_id)
@@ -76,11 +78,12 @@ class OrderController extends Controller
                 ]); // Specific fields for Orders
             }
         ])
+        
             ->where('user_id', session('isUser'))
             ->where('id', $order_master_id)
-            ->select('id','name', 'total_amount', 'payment_method', 'invoice_no','invoice_prefix','created_at')
+            ->select('id','name', 'total_amount', 'coupon_discount', 'payment_method', 'invoice_no','invoice_prefix','created_at')
             ->first();
-
+// dd($order_master_id);
         return view('catalog.account.invoice', $data);
     }
 
